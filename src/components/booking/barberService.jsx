@@ -26,7 +26,7 @@ export default function BarberService({ barberService, data }) {
 			</div>
 			<div className='col-md-4'>
 				<div className='barber-service'>
-					<h5>თმა</h5>
+					<h5>წვერი</h5>
 					{barberService.map(res => {
 						if (res.category_type === '2') {
 							return (
@@ -48,7 +48,7 @@ export default function BarberService({ barberService, data }) {
 			</div>
 			<div className='col-md-4'>
 				<div className='barber-service'>
-					<h5>თმა</h5>
+					<h5>ზოგადი</h5>
 					{barberService.map(res => {
 						if (res.category_type === '3') {
 							return (
