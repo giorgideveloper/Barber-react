@@ -1,7 +1,7 @@
 import CalendarComponent from './components/calendar/bigCalendar.jsx';
 function App() {
 	return (
-		<div className='App'>
+		<div className=''>
 			<CalendarComponent />
 		</div>
 	);

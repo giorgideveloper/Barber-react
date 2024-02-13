@@ -96,16 +96,22 @@ export default function BigCalendar() {
 	}
 	return (
 		<div>
-			<Calendar
-				localizer={localizer}
-				events={booking}
-				titleAccessor={booking =>
-					`${booking.barbery} - ${booking.service} - ${booking.time} - ${booking.customer_phone} `
-				}
-				startAccessor={booking => new Date(booking.date)}
-				endAccessor={booking => new Date(booking.date)}
-				style={{ height: 500 }}
-			/>
+			<div className='container'>
+				<div className='row'>
+					<div className='col-12'>
+						<Calendar
+							localizer={localizer}
+							events={booking}
+							titleAccessor={booking =>
+								`${booking.barbery} - ${booking.service} - ${booking.time} - ${booking.customer_phone} `
+							}
+							startAccessor={booking => new Date(booking.date)}
+							endAccessor={booking => new Date(booking.date)}
+							style={{ height: 500 }}
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
