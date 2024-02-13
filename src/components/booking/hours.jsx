@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { workingHours } from '../api/api.js';
+import { workingHours } from '../../api/api.js';
 import DisabledTooltip from './tooltip.jsx';
 
 export default function Hours({ bookings, setFreeHour }) {

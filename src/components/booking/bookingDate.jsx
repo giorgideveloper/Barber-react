@@ -1,6 +1,6 @@
 import React, { forwardRef, useEffect, useState } from 'react';
 import 'flatpickr/dist/flatpickr.css';
-import { bookingTime } from '../api/api.js';
+import { bookingTime } from '../../api/api.js';
 import moment from 'moment';
 import Hours from './hours.jsx';
 import DatePicker from 'react-datepicker';

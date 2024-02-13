@@ -1,7 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import AppBooking from './App_booking';
+import AppCalendar from './App_calendar';
 
-const root = ReactDOM.createRoot(document.getElementById('booking'));
-root.render(<App />);
+const booking = ReactDOM.createRoot(document.getElementById('booking'));
+booking.render(<AppBooking />);
+
+const calendar = ReactDOM.createRoot(document.getElementById('calendar'));
+calendar.render(<AppCalendar />);

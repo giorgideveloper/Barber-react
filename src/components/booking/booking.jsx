@@ -5,14 +5,14 @@ import {
 	bookingCreate,
 	bookingSmsCode,
 	service,
-} from '../api/api.js';
+} from '../../api/api.js';
 
 import Swal from 'sweetalert2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyModal from './modal.jsx';
 import BorderExample from './spiner.jsx';
 import BarberService from './barberService.jsx';
-import toast from '../helper/toast.js';
+import toast from '../../helper/toast.js';
 
 export default function Booking() {
 	const [day, setDay] = useState('');
