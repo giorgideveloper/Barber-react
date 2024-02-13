@@ -4,8 +4,14 @@ import './index.css';
 import AppBooking from './App_booking';
 import AppCalendar from './App_calendar';
 
-const booking = ReactDOM.createRoot(document.getElementById('booking'));
-booking.render(<AppBooking />);
+const bookingEl = document.getElementById('booking');
+if (bookingEl) {
+	const booking = ReactDOM.createRoot(document.getElementById('booking'));
+	booking.render(<AppBooking />);
+}
 
-const calendar = ReactDOM.createRoot(document.getElementById('calendar'));
-calendar.render(<AppCalendar />);
+const calendarEl = document.getElementById('calendar');
+if (calendarEl) {
+	const calendar = ReactDOM.createRoot(document.getElementById('calendar'));
+	calendar.render(<AppCalendar />);
+}
