@@ -1,9 +1,8 @@
-
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import { allBarber, service, usersBookings, workingHours } from '../api/api';
+import { allBarber, service, usersBookings, workingHours } from '../api/api.js';
 const localizer = momentLocalizer(moment);
 
 export default function BigCalendar() {

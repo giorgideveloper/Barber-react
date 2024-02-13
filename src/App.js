@@ -1,8 +1,8 @@
-import Booking from './components/booking';
+import BookingComponent from './components/booking.jsx';
 function App() {
 	return (
 		<div className='App'>
-			<Booking />
+			<BookingComponent />
 		</div>
 	);
 }

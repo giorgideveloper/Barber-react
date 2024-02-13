@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { workingHours } from '../api/api';
-import DisabledTooltip from './tooltip';
+import { workingHours } from '../api/api.js';
+import DisabledTooltip from './tooltip.jsx';
 
 export default function Hours({ bookings, setFreeHour }) {
 	const [hours, setHours] = useState([]);
