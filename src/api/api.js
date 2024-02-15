@@ -10,6 +10,26 @@ export const usersBookings = async () => {
 		throw err;
 	}
 };
+
+export const usersBookingsId = async id => {
+	try {
+		const res = await axios.get(`${baseUrl}/bookings/${id}`);
+		return res;
+	} catch (err) {
+		throw err;
+	}
+};
+export const usersBookingsPut = async (id, data) => {
+	try {
+		const res = await axios.put(`${baseUrl}/bookings/${id}`, {
+			data,
+		});
+		return res;
+	} catch (err) {
+		throw err;
+	}
+};
+
 export const allBarber = async () => {
 	try {
 		const res = await axios.get(`${baseUrl}/barbery/`);

@@ -93,10 +93,12 @@ body {
     font-size: 13px !important;
   }
 }
-.App{
+
+.App {
   background-color: #101010;
   flex-grow: 1;
 }
+
 .spinner {
   height: 100vh;
   display: flex;
@@ -106,17 +108,19 @@ body {
 }
 
 
-.rbc-event{
+.rbc-event {
   background-color: #cf814d !important;
   border: 1px solid #cf814d !important;
 }
+
 .rbc-event:hover,
 .rbc-event:active,
 .rbc-event:visited,
 .rbc-event:focus {
   background-color: #2c1d13 !important;
-   border: 1px solid #cf814d !important;
+  border: 1px solid #cf814d !important;
 }
+
 .from-modal input::placeholder {
   color: #fff !important;
 }
@@ -623,4 +627,24 @@ form button {
 
 .modal-footer {
   border: none !important;
+}
+
+/* .rbc-btn-group button {
+  background-color: #110a06 !important;
+} */
+
+.rbc-month-row {
+  flex-basis: 144px !important;
+}
+
+.calendar-form input {
+  border-radius: 1px !important;
+}
+
+.calendar-form select {
+  border-radius: 1px !important;
+}
+
+.calendar-form input:read-only {
+  color: #cccccc !important;
 }

@@ -1,6 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+	Calendar,
+	dateFnsLocalizer,
+	momentLocalizer,
+} from 'react-big-calendar';
 import moment from 'moment';
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
+import startOfWeek from 'date-fns/startOfWeek';
+import getDay from 'date-fns/getDay';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import {
 	allBarber,
@@ -8,14 +16,32 @@ import {
 	usersBookings,
 	workingHours,
 } from '../../api/api.js';
-const localizer = momentLocalizer(moment);
+import kaKA from 'date-fns/locale/ka/_lib/localize/index.js';
+import ModalCalendar from './modalCalendar.jsx';
+
+const locales = {
+	// eslint-disable-next-line no-undef
+	'ka-KA': kaKA,
+};
+
+const localizer = dateFnsLocalizer({
+	format,
+	parse,
+	startOfWeek,
+	getDay,
+	locales,
+});
+
+// const localizer = momentLocalizer(moment);
 
 export default function BigCalendar() {
 	const [booking, setBookings] = useState([]);
+	console.log('🚀 ~ BigCalendar ~ booking:', booking);
 	const [barber, setBarbers] = useState([]);
 	const [barberService, setBarberService] = useState([]);
 	const [workingTime, setWorkingTime] = useState([]);
-	const [page, setPage] = useState(0);
+	const [user, setUser] = useState();
+	const [modalShow, setModalShow] = useState(false);
 
 	//Get all booking users
 	const getBookingFc = async () => {
@@ -94,20 +120,42 @@ export default function BigCalendar() {
 			}
 		}
 	}
+
+	const eventsWithDateTime = booking.map(booking => ({
+		...booking,
+		datetime: new Date(`${booking.date}T${booking.time}`),
+	}));
+	const onSelectEvent = calEvent => {
+		setUser(calEvent);
+		setModalShow(true);
+	};
 	return (
 		<div>
-			<div className='container'>
-				<div className='row'>
+			<div className='container-fluid'>
+				<div className='row mt-5'>
+					{modalShow ? (
+						<div className='col-12'>
+							<ModalCalendar
+								user={user}
+								show={modalShow}
+								onHide={() => setModalShow(false)}
+							/>
+						</div>
+					) : (
+						''
+					)}
 					<div className='col-12'>
 						<Calendar
 							localizer={localizer}
-							events={booking}
+							events={eventsWithDateTime}
 							titleAccessor={booking =>
-								`${booking.barbery} - ${booking.service} - ${booking.time} - ${booking.customer_phone} `
+								`${booking.barbery} - ${booking.service} - ${booking.date} - ${booking.time} - ${booking.customer_phone}`
 							}
-							startAccessor={booking => new Date(booking.date)}
-							endAccessor={booking => new Date(booking.date)}
+							startAccessor={booking => booking.datetime}
+							endAccessor={booking => booking.datetime}
 							style={{ height: 500 }}
+							popup={true}
+							onSelectEvent={onSelectEvent}
 						/>
 					</div>
 				</div>
