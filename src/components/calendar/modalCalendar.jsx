@@ -106,21 +106,24 @@ export default function ModalCalendar(props) {
 			date,
 		}));
 	};
+	//Editing
 	const handleSubmit = async e => {
 		e.preventDefault();
 		try {
 			await usersBookingsPut(props.user.id, userData).then(response => {
 				console.log('User data updated successfully:', response.data);
-
+				props.getBookingFc();
 				onSelectEvent();
 			});
 		} catch (error) {
 			throw error;
 		}
 	};
+
 	const handleDelete = async eventId => {
 		try {
 			await bookingDelete(eventId);
+			props.getBookingFc();
 			onSelectEvent();
 			// Optionally, you can perform additional actions after successful delete
 		} catch (error) {
@@ -131,7 +134,7 @@ export default function ModalCalendar(props) {
 	const onSelectEvent = () => {
 		props.onHide(false);
 	};
-	console.log('🚀 ~ ModalCalendar ~ userData:', userData);
+
 	return (
 		<>
 			<Modal
