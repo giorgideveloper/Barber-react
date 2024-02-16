@@ -291,6 +291,10 @@ form .btn-primary:hover,
   border-radius: 1px;
   border: 1px solid #cf814d;
 } */
+.primer button {
+  background-color: rgb(3, 85, 161) !important;
+  border: 1px solid rgb(3, 85, 161) !important;
+}
 
 h4.solid {
   position: relative !important;
@@ -779,6 +783,11 @@ form button {
 /* .rbc-row-bg {
   border: 1px solid #cf814d !important;
 } */
+.rbc-agenda-view table.rbc-agenda-table tbody>tr>td {
+  vertical-align: middle !important;
+}
+
+;
 
 @media (max-width: 426px) {
   .rbc-day-bg {

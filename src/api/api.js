@@ -113,3 +113,12 @@ export const bookingCreate = async data => {
 		throw err;
 	}
 };
+
+export const bookingDelete = async id => {
+	try {
+		const res = await axios.delete(`${baseUrl}/bookings/${id}`);
+		return res;
+	} catch (err) {
+		throw err;
+	}
+};

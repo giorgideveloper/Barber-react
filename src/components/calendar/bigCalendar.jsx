@@ -88,7 +88,7 @@ export default function BigCalendar() {
 		getBarbers();
 		getService();
 		getWorkingTime();
-	}, [booking]);
+	}, []);
 
 	if (booking) {
 		for (const b in booking) {
@@ -144,7 +144,15 @@ export default function BigCalendar() {
 							localizer={localizer}
 							events={eventsWithDateTime}
 							titleAccessor={booking =>
-								`${booking.barbery} - ${booking.service} - ${booking.date} - ${booking.time} - ${booking.customer_phone}`
+								`${
+									booking.read ? (
+										''
+									) : (
+										<span class='badge bg-secondary'>New</span>
+									)
+								}${booking.barbery} - ${booking.service} - ${booking.date} - ${
+									booking.time
+								} - ${booking.customer_phone}`
 							}
 							startAccessor={booking => booking.datetime}
 							endAccessor={booking => booking.datetime}
