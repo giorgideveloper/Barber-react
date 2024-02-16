@@ -24,53 +24,34 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
 
 export default function ModalCalendar(props) {
 	const [bookingUser, setBookingUser] = useState([]);
-	const [startDate, setStartDate] = useState(new Date(props.user.datetime));
 	const [hours, setHours] = useState('');
 	const [barber, setBarber] = useState('');
-	const [submitForm, setSubmitFrom] = useState({
-		service: bookingUser.service,
-		time: bookingUser.time,
-		customer_name: props.user.customer_name,
-		customer_phone: props.user.customer_phone,
-		message: props.user.message,
-		date: startDate,
-		confirmed: Boolean,
-		barbery: bookingUser.barbery,
+	const [userData, setUserData] = useState({
+		service: '',
+		time: '',
+		customer_name: '',
+		customer_phone: '',
+		message: '',
+		date: new Date(),
+		barbery: '',
 	});
 
 	useEffect(() => {
-		// Update formData whenever props change
-		setSubmitFrom({
-			service: bookingUser.service,
-			time: bookingUser.time,
-			customer_name: props.user.customer_name,
-			customer_phone: props.user.customer_phone,
-			message: props.user.message,
-			date: startDate,
-			barbery: bookingUser.barbery,
-			confirmed: true,
-		});
-	}, [
-		bookingUser.barbery,
-		bookingUser.service,
-		bookingUser.time,
-		props,
-		startDate,
-	]);
-	const userData = async () => {
-		try {
-			const res = await usersBookingsId(props.user.id);
-			if (res.status === 200) {
-				setBookingUser(res.data);
-				// setLoading(true);
-			} else {
-				console.log('error barber data');
+		const userDatas = async () => {
+			try {
+				const res = await usersBookingsId(props.user.id);
+				if (res.status === 200) {
+					setUserData(res.data);
+					// setLoading(true);
+				} else {
+					console.log('error barber data');
+				}
+			} catch (error) {
+				throw error;
 			}
-		} catch (error) {
-			throw error;
-		}
-	};
-
+		};
+		userDatas();
+	}, [props.user.id]);
 	const allHours = async () => {
 		try {
 			const res = await workingHours();
@@ -100,29 +81,36 @@ export default function ModalCalendar(props) {
 	};
 
 	useEffect(() => {
-		userData();
 		allHours();
 		allBarbers();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	for (const n in hours) {
-		if (hours[n].id === bookingUser.time) {
-			hours[n].time = ''; //Todo
-		}
-	}
+	// for (const n in hours) {
+	// 	if (hours[n].id === bookingUser.time) {
+	// 		hours[n].time = ''; //Todo
+	// 	}
+	// }
 
-	let name, value;
-	const data = e => {
-		name = e.target.name;
-		value = e.target.value;
-		setSubmitFrom({ ...submitForm, [name]: value });
+	const handleInputChange = e => {
+		const { name, value } = e.target;
+		setUserData(prevData => ({
+			...prevData,
+			[name]: value,
+		}));
+	};
+
+	const handleDateChange = date => {
+		setUserData(prevData => ({
+			...prevData,
+			date,
+		}));
 	};
 	const handleSubmit = async e => {
 		e.preventDefault();
 
 		try {
-			const res = await usersBookingsPut(props.user.id, submitForm);
+			const res = await usersBookingsPut(props.user.id);
 			if (res.status === 200) {
 				alert('okkk');
 				// setLoading(true);
@@ -134,7 +122,6 @@ export default function ModalCalendar(props) {
 		}
 	};
 
-	console.log(submitForm);
 	return (
 		<>
 			<Modal
@@ -145,7 +132,7 @@ export default function ModalCalendar(props) {
 			>
 				<Modal.Header closeButton>
 					<Modal.Title id='contained-modal-title-vcenter'>
-						ჯავშანი რედაქტირება
+						ჯავშანის ინფორმაცია
 					</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
@@ -156,7 +143,7 @@ export default function ModalCalendar(props) {
 								<Form.Select
 									aria-label='Default select example'
 									name='barbery'
-									onChange={data}
+									onChange={handleInputChange}
 								>
 									<option value={`${bookingUser.barbery}`}>
 										{props.user.barbery}
@@ -181,15 +168,16 @@ export default function ModalCalendar(props) {
 									placeholder={`${props.user.service}`}
 									aria-label='Disabled input example'
 									disabled
-									onChange={data}
+									onChange={handleInputChange}
 								/>
 							</div>
 							<div className='col-12 col-md-6'>
 								<h5>ვიზიტის დღე</h5>
 								<DatePicker
-									selected={startDate}
-									onChange={date => setStartDate(date)}
-									minDate={props.user.datetime}
+									selected={new Date(userData.date)}
+									// eslint-disable-next-line no-undef
+									onChange={handleDateChange}
+									minDate={new Date(userData.date)}
 									dateFormat='MMMM d, yyyy'
 									withPortal
 									customInput={<ExampleCustomInput />}
@@ -201,7 +189,7 @@ export default function ModalCalendar(props) {
 								<Form.Select
 									aria-label='Default select example'
 									name='time'
-									onChange={data}
+									onChange={handleInputChange}
 								>
 									<option value={bookingUser.id}>{props.user.time}</option>
 									{hours &&
@@ -219,6 +207,8 @@ export default function ModalCalendar(props) {
 								<Form.Control
 									value={`${props.user.customer_name}`}
 									type='text'
+									name='customer_name'
+									onChange={handleInputChange}
 									aria-label='Disabled input example'
 									disabled
 								/>
@@ -228,6 +218,7 @@ export default function ModalCalendar(props) {
 								<Form.Control
 									type='text'
 									value={`${props.user.customer_phone}`}
+									name='customer_phone'
 									aria-label='Disabled input example'
 									disabled
 								/>
@@ -239,6 +230,8 @@ export default function ModalCalendar(props) {
 									as='textarea'
 									value={`${props.user.message}`}
 									rows={2}
+									name='message'
+									onChange={handleInputChange}
 									disabled
 								/>
 							</div>
