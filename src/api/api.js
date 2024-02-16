@@ -21,9 +21,7 @@ export const usersBookingsId = async id => {
 };
 export const usersBookingsPut = async (id, data) => {
 	try {
-		const res = await axios.put(`${baseUrl}/bookings/${id}`, {
-			data,
-		});
+		const res = await axios.put(`${baseUrl}/bookings/${id}`, data);
 		return res;
 	} catch (err) {
 		throw err;

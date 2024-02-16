@@ -1,10 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import {
-	Calendar,
-	dateFnsLocalizer,
-	momentLocalizer,
-} from 'react-big-calendar';
-import moment from 'moment';
+import React, { useEffect, useState } from 'react';
+import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from 'date-fns/format';
 import parse from 'date-fns/parse';
 import startOfWeek from 'date-fns/startOfWeek';
@@ -36,7 +31,6 @@ const localizer = dateFnsLocalizer({
 
 export default function BigCalendar() {
 	const [booking, setBookings] = useState([]);
-	console.log('🚀 ~ BigCalendar ~ booking:', booking);
 	const [barber, setBarbers] = useState([]);
 	const [barberService, setBarberService] = useState([]);
 	const [workingTime, setWorkingTime] = useState([]);
@@ -94,7 +88,7 @@ export default function BigCalendar() {
 		getBarbers();
 		getService();
 		getWorkingTime();
-	}, []);
+	}, [booking]);
 
 	if (booking) {
 		for (const b in booking) {
@@ -125,6 +119,7 @@ export default function BigCalendar() {
 		...booking,
 		datetime: new Date(`${booking.date}T${booking.time}`),
 	}));
+
 	const onSelectEvent = calEvent => {
 		setUser(calEvent);
 		setModalShow(true);
