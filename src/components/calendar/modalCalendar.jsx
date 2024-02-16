@@ -112,7 +112,7 @@ export default function ModalCalendar(props) {
 		try {
 			await usersBookingsPut(props.user.id, userData).then(response => {
 				console.log('User data updated successfully:', response.data);
-				props.getBookingFc();
+				props.getbookingfc();
 				onSelectEvent();
 			});
 		} catch (error) {

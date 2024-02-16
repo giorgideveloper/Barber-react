@@ -1,7 +1,9 @@
 import axios from 'axios';
-
+import Cookies from 'js-cookie';
 const baseUrl = 'https://barbery.lumos.com.ge/booking';
 
+const csrfToken = Cookies.get('csrftoken');
+// console.log(csrfToken);
 export const usersBookings = async () => {
 	try {
 		const res = await axios.get(`${baseUrl}/bookings`);
@@ -21,7 +23,12 @@ export const usersBookingsId = async id => {
 };
 export const usersBookingsPut = async (id, data) => {
 	try {
-		const res = await axios.put(`${baseUrl}/bookings/${id}`, data);
+		const res = await axios.put(`${baseUrl}/bookings/${id}`, data, {
+			headers: {
+				'X-CSRF-TOKEN': csrfToken,
+				// Add other headers as needed
+			},
+		});
 		return res;
 	} catch (err) {
 		throw err;
