@@ -132,10 +132,10 @@ export default function Booking() {
 			toast('error', 'სმს კოდი არასწორია');
 		}
 	};
-	console.log(roomId);
+	console.log('Meta User', roomId);
 	// Get barber
 	useEffect(() => {
-		setRoomId(document.getElementsByName('roomId')[0]?.content);
+		setRoomId(document.getElementsByName('user')[0]?.content);
 		barberData();
 		getService();
 	}, []);

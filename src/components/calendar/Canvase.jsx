@@ -18,21 +18,23 @@ function Canvase({ eventsWithDateTime, user, getBookingFc }) {
 		barbery: '',
 	});
 	// Confirmed BTN
-	const handleConfirm = async id => {
+	const handleConfirm = async booking => {
+		console.log(booking);
+		setUserData({
+			...booking,
+			confirmed: true,
+		});
 		try {
-			setUserData(prevData => ({
-				...prevData,
-				confirmed: true,
-			}));
-			await usersBookingsPut(id, userData).then(response => {
+			await usersBookingsPut(booking.id, userData).then(response => {
 				console.log('User data updated successfully:', response.data);
 				getBookingFc();
+				setShow(false);
 			});
 		} catch (error) {
 			throw error;
 		}
 	};
-
+	console.log('🚀 ~ Canvase ~ userData:', userData);
 	let counter = [];
 	for (const booked in eventsWithDateTime) {
 		if (eventsWithDateTime[booked].confirmed === false) {
@@ -74,7 +76,7 @@ function Canvase({ eventsWithDateTime, user, getBookingFc }) {
 									</div>
 									<div className='col-12 text-center pb-3'>
 										<button
-											onClick={() => handleConfirm(booking.id)}
+											onClick={() => handleConfirm(booking)}
 											className={`btn ${
 												eventsWithDateTime.confirmed
 													? 'btn-primary'

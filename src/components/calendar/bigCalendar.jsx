@@ -166,7 +166,7 @@ export default function BigCalendar() {
 					<div className='col-12'>
 						<Calendar
 							localizer={localizer}
-							events={booking}
+							events={eventsWithDateTime}
 							titleAccessor={booking =>
 								`${
 									booking.read ? (
