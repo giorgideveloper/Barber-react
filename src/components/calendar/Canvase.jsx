@@ -41,7 +41,7 @@ function Canvase({ eventsWithDateTime, user, getBookingFc }) {
 			counter.push({
 				id: eventsWithDateTime[booked],
 			});
-		}
+		} //Todo
 	}
 	return (
 		<>
