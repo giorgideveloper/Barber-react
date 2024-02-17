@@ -5,7 +5,6 @@ import DatePicker from 'react-datepicker';
 import {
 	allBarber,
 	bookingDelete,
-	csrfBookings,
 	usersBookingsId,
 	usersBookingsPut,
 	workingHours,

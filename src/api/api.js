@@ -32,8 +32,8 @@ export const usersBookingsPut = async (id, data, csrf) => {
 		const res = await axios.put(`${baseUrl}/bookings/${id}`, data, {
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/json',
-				'X-CSRF-TOKEN': csrf,
+				'X-CSRFToken': csrf,
+				mode: 'same-origin', //
 			},
 		});
 
@@ -135,7 +135,8 @@ export const bookingDelete = async (id, csrf) => {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				'X-CSRF-TOKEN': csrf,
+				'X-CSRFToken': csrf,
+				mode: 'same-origin', // Do not send CSRF token to another
 			},
 		});
 		return res;
