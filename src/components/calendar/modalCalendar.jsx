@@ -133,6 +133,22 @@ export default function ModalCalendar(props) {
 			// Handle the error appropriately, either by logging or displaying a message to the user
 		}
 	};
+
+	const handleConfirm = async () => {
+		try {
+			setUserData(prevData => ({
+				...prevData,
+				confirmed: true,
+			}));
+			await usersBookingsPut(props.user.id, userData, csrf).then(response => {
+				console.log('User data updated successfully:', response.data);
+				getBookingFc();
+				onSelectEvent();
+			});
+		} catch (error) {
+			throw error;
+		}
+	};
 	const onSelectEvent = () => {
 		props.onHide(false);
 	};
@@ -264,7 +280,11 @@ export default function ModalCalendar(props) {
 								</button>
 							</div>
 							<div className='col-12 col-md-4 text-center primer'>
-								<button type='submit' className='btn btn-primary  w-100'>
+								<button
+									type='submit'
+									className='btn btn-primary  w-100'
+									onClick={() => handleConfirm(props.user.id)}
+								>
 									დადასტურება
 								</button>
 							</div>

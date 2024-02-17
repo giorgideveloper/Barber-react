@@ -33,7 +33,7 @@ export const usersBookingsPut = async (id, data, csrf) => {
 			headers: {
 				Accept: 'application/json',
 				'X-CSRFToken': csrf,
-				mode: 'same-origin', //
+				mode: 'same-origin',
 			},
 		});
 
