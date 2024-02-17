@@ -7,6 +7,7 @@ import getDay from 'date-fns/getDay';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import {
 	allBarber,
+	csrfBookings,
 	service,
 	usersBookings,
 	workingHours,
@@ -36,6 +37,15 @@ export default function BigCalendar() {
 	const [workingTime, setWorkingTime] = useState([]);
 	const [user, setUser] = useState();
 	const [modalShow, setModalShow] = useState(false);
+	const [csrf, setCsrf] = useState('');
+	// get csrfToken
+	useEffect(() => {
+		const getCsrf = async () => {
+			const res = await csrfBookings();
+			setCsrf(res);
+		};
+		getCsrf();
+	}, []);
 
 	//Get all booking users
 	const getBookingFc = async () => {
@@ -135,6 +145,7 @@ export default function BigCalendar() {
 								show={modalShow}
 								onHide={() => setModalShow(false)}
 								getBookingFc={getBookingFc}
+								csrf={csrf}
 							/>
 						</div>
 					) : (

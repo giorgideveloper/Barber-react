@@ -24,9 +24,7 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
 ));
 
 export default function ModalCalendar(props) {
-	const { getBookingFc } = props;
-	const [csrf, setCsrf] = useState('');
-	console.log('🚀 ~ ModalCalendar ~ csrf:', csrf);
+	const { getBookingFc, csrf } = props;
 	const [hours, setHours] = useState('');
 	const [barber, setBarber] = useState('');
 	const [userData, setUserData] = useState({
@@ -38,14 +36,6 @@ export default function ModalCalendar(props) {
 		date: new Date(),
 		barbery: '',
 	});
-	// get csrfToken
-	useEffect(() => {
-		const getCsrf = async () => {
-			const res = await csrfBookings();
-			setCsrf(res);
-		};
-		getCsrf();
-	}, []);
 
 	// get user data whit id
 	useEffect(() => {
