@@ -12,7 +12,7 @@ export const csrfBookings = async () => {
 
 export const usersBookings = async () => {
 	try {
-		const res = await axios.get(`${baseUrl}/bookings`);
+		const res = await axios.get(`${baseUrl}/bookings/`);
 		return res;
 	} catch (err) {
 		throw err;
@@ -85,7 +85,7 @@ export const bookingTime = async (time, barberId) => {
 
 export const workingHours = async () => {
 	try {
-		const res = await axios.get(`${baseUrl}/time`);
+		const res = await axios.get(`${baseUrl}/time/`);
 		return res;
 	} catch (err) {
 		throw err;
