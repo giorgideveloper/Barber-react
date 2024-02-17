@@ -14,6 +14,7 @@ import {
 } from '../../api/api.js';
 import kaKA from 'date-fns/locale/ka/_lib/localize/index.js';
 import ModalCalendar from './modalCalendar.jsx';
+import Canvase from './Canvase.jsx';
 
 const locales = {
 	// eslint-disable-next-line no-undef
@@ -151,10 +152,21 @@ export default function BigCalendar() {
 					) : (
 						''
 					)}
+					<div className='row g-1 justify-content-end'>
+						{' '}
+						<div className='col-md-3 text-end '>
+							<Canvase
+								getBookingFc={getBookingFc}
+								user={user}
+								eventsWithDateTime={eventsWithDateTime}
+							/>
+						</div>
+					</div>
+
 					<div className='col-12'>
 						<Calendar
 							localizer={localizer}
-							events={eventsWithDateTime}
+							events={booking}
 							titleAccessor={booking =>
 								`${
 									booking.read ? (
