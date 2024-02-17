@@ -134,7 +134,7 @@ export default function BigCalendar() {
 								user={user}
 								show={modalShow}
 								onHide={() => setModalShow(false)}
-								getbookingfc={getBookingFc}
+								getBookingFc={getBookingFc}
 							/>
 						</div>
 					) : (

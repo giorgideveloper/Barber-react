@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker';
 import {
 	allBarber,
 	bookingDelete,
+	csrfBookings,
 	usersBookingsId,
 	usersBookingsPut,
 	workingHours,
@@ -23,6 +24,9 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
 ));
 
 export default function ModalCalendar(props) {
+	const { getBookingFc } = props;
+	const [csrf, setCsrf] = useState('');
+	console.log('🚀 ~ ModalCalendar ~ csrf:', csrf);
 	const [hours, setHours] = useState('');
 	const [barber, setBarber] = useState('');
 	const [userData, setUserData] = useState({
@@ -34,7 +38,16 @@ export default function ModalCalendar(props) {
 		date: new Date(),
 		barbery: '',
 	});
+	// get csrfToken
+	useEffect(() => {
+		const getCsrf = async () => {
+			const res = await csrfBookings();
+			setCsrf(res);
+		};
+		getCsrf();
+	}, []);
 
+	// get user data whit id
 	useEffect(() => {
 		const fetchUserData = async () => {
 			try {
@@ -110,9 +123,9 @@ export default function ModalCalendar(props) {
 	const handleSubmit = async e => {
 		e.preventDefault();
 		try {
-			await usersBookingsPut(props.user.id, userData).then(response => {
+			await usersBookingsPut(props.user.id, userData, csrf).then(response => {
 				console.log('User data updated successfully:', response.data);
-				props.getbookingfc();
+				getBookingFc();
 				onSelectEvent();
 			});
 		} catch (error) {
@@ -122,8 +135,8 @@ export default function ModalCalendar(props) {
 
 	const handleDelete = async eventId => {
 		try {
-			await bookingDelete(eventId);
-			props.getBookingFc();
+			await bookingDelete(eventId, csrf);
+			getBookingFc();
 			onSelectEvent();
 			// Optionally, you can perform additional actions after successful delete
 		} catch (error) {

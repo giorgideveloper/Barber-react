@@ -1,9 +1,15 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 const baseUrl = 'https://barbery.lumos.com.ge/booking';
 
-const csrfToken = Cookies.get('csrftoken');
-// console.log(csrfToken);
+export const csrfBookings = async () => {
+	try {
+		const res = await axios.get(`${baseUrl}/get-csrf-token/`);
+		return res.data.csrfToken;
+	} catch (err) {
+		throw err;
+	}
+};
+
 export const usersBookings = async () => {
 	try {
 		const res = await axios.get(`${baseUrl}/bookings`);
@@ -21,14 +27,16 @@ export const usersBookingsId = async id => {
 		throw err;
 	}
 };
-export const usersBookingsPut = async (id, data) => {
+export const usersBookingsPut = async (id, data, csrf) => {
 	try {
 		const res = await axios.put(`${baseUrl}/bookings/${id}`, data, {
 			headers: {
-				'X-CSRF-TOKEN': csrfToken,
-				// Add other headers as needed
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				'X-CSRF-TOKEN': csrf,
 			},
 		});
+
 		return res;
 	} catch (err) {
 		throw err;
@@ -121,9 +129,15 @@ export const bookingCreate = async data => {
 	}
 };
 
-export const bookingDelete = async id => {
+export const bookingDelete = async (id, csrf) => {
 	try {
-		const res = await axios.delete(`${baseUrl}/bookings/${id}`);
+		const res = await axios.delete(`${baseUrl}/bookings/${id}`, {
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				'X-CSRF-TOKEN': csrf,
+			},
+		});
 		return res;
 	} catch (err) {
 		throw err;
