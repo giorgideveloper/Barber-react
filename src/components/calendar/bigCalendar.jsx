@@ -161,6 +161,7 @@ export default function BigCalendar() {
 									getBookingFc={getBookingFc}
 									user={user}
 									eventsWithDateTime={eventsWithDateTime}
+									csrf={csrf}
 								/>
 							</div>
 						</div>

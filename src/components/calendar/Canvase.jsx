@@ -16,7 +16,7 @@ import ModalCalendar from './modalCalendar.jsx';
 // 	</button>
 // ));
 
-function Canvase({ eventsWithDateTime, getBookingFc }) {
+function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 	const [show, setShow] = useState(false);
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -40,7 +40,7 @@ function Canvase({ eventsWithDateTime, getBookingFc }) {
 			} else {
 				console.log('error barber data');
 			}
-			await usersBookingsPut(booking.id, userParsed).then(response => {
+			await usersBookingsPut(booking.id, userParsed, csrf).then(response => {
 				console.log('User data updated successfully:', response.data);
 				getBookingFc();
 				setShow(false);
