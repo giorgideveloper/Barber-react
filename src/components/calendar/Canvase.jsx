@@ -160,12 +160,19 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 											} `}
 											onClick={() => handleOpen(booking)}
 										>
-											<div className='col-6 text-center '>
-												<h5>{booking.barbery}</h5>
-												<p>{booking.customer_name}</p>
+											<div className='col-6 border-end   border-warning text-center '>
+												<h5>
+													<span></span> {booking.barbery}
+												</h5>
+												<p className='p-2'>
+													<span></span>
+													{booking.customer_name}
+												</p>
 											</div>
 											<div className='col-6 text-center'>
-												<p>{booking.date}</p>
+												<p>
+													{booking.date} <span>{booking.time.slice(0, 5)}</span>
+												</p>
 												<p>{booking.customer_phone}</p>
 											</div>
 										</div>
