@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { usersBookingsId, usersBookingsPut } from '../../api/api';
-import ModalCalendar from './modalCalendar';
+import ModalCalendar from './modalCalendar.jsx';
 
 // const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
 // 	<button
