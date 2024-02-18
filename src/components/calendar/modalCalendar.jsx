@@ -9,6 +9,7 @@ import {
 	usersBookingsPut,
 	workingHours,
 } from '../../api/api';
+import toast from '../../helper/toast';
 
 const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
 	<button
@@ -87,11 +88,19 @@ export default function ModalCalendar(props) {
 		allBarbers();
 	}, []);
 
-	// for (const n in hours) {
-	// 	if (hours[n].id === bookingUser.time) {
-	// 		hours[n].time = ''; //Todo
-	// 	}
-	// }
+	for (const n in hours) {
+		if (hours[n].id === userData.time) {
+			setHours(prevHours =>
+				prevHours.filter(hour => hour.id !== userData.time)
+			);
+		}
+	}
+
+	for (const n in barber) {
+		if (barber[n].id === userData.barbery) {
+			setBarber(prevHours => prevHours.filter(b => b.id !== userData.barbery));
+		}
+	}
 
 	const handleInputChange = e => {
 		const { name, value } = e.target;
@@ -108,14 +117,15 @@ export default function ModalCalendar(props) {
 			date,
 		}));
 	};
+	console.log(userData);
 	//Editing
 	const handleSubmit = async e => {
 		e.preventDefault();
 		try {
 			await usersBookingsPut(props.user.id, userData, csrf).then(response => {
-				console.log('User data updated successfully:', response.data);
 				getBookingFc();
 				onSelectEvent();
+				toast('success', 'ჯავშანი დარედაქტირებულია');
 			});
 		} catch (error) {
 			throw error;
@@ -127,6 +137,8 @@ export default function ModalCalendar(props) {
 			await bookingDelete(eventId, csrf);
 			getBookingFc();
 			onSelectEvent();
+			toast('success', 'ჯავშანი გაუქმებულია');
+
 			// Optionally, you can perform additional actions after successful delete
 		} catch (error) {
 			console.error('Error deleting booking:', error);
@@ -144,6 +156,7 @@ export default function ModalCalendar(props) {
 				console.log('User data updated successfully:', response.data);
 				getBookingFc();
 				onSelectEvent();
+				toast('success', 'ჯავშანი დადასტურებულია');
 			});
 		} catch (error) {
 			throw error;
@@ -152,7 +165,7 @@ export default function ModalCalendar(props) {
 	const onSelectEvent = () => {
 		props.onHide(false);
 	};
-
+	console.log(props.user.barbery);
 	return (
 		<>
 			<Modal
@@ -221,7 +234,7 @@ export default function ModalCalendar(props) {
 									name='time'
 									onChange={handleInputChange}
 								>
-									<option value={userData.id}>{props.user.time}</option>
+									<option value={userData.time}>{props.user.time}</option>
 									{hours &&
 										hours?.map(item => (
 											<>

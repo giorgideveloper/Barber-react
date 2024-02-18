@@ -22,14 +22,13 @@ export default function Booking() {
 	const [barber, setBarber] = useState([]);
 	const [barberId, setBarberId] = useState('');
 	const [barberService, setBarberService] = useState([]);
-
 	//modal
 	const [showModal, setShowModal] = useState(false);
 	const [modalTitle, setModalTitle] = useState('შეიიყვაანეთ სმს კოდი');
 	//loading
 	const [loading, setLoading] = useState(false);
 	const handleCloseModal = () => setShowModal(false);
-	const [roomId, setRoomId] = useState(null);
+	// const [roomId, setRoomId] = useState(null);
 	const [user, setUser] = useState({
 		service: null,
 		customer_name: '',
@@ -132,10 +131,10 @@ export default function Booking() {
 			toast('error', 'სმს კოდი არასწორია');
 		}
 	};
-	console.log('Meta User', roomId);
+	// console.log('Meta User', roomId);
 	// Get barber
 	useEffect(() => {
-		setRoomId(document.getElementsByName('user')[0]?.content);
+		// setRoomId(document.getElementsByName('user')[0]?.content);
 		barberData();
 		getService();
 	}, []);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { usersBookingsId, usersBookingsPut } from '../../api/api';
@@ -22,26 +22,13 @@ function Canvase({ eventsWithDateTime, getBookingFc }) {
 	const handleShow = () => setShow(true);
 	const [modalShow, setModalShow] = useState(false);
 	const [user, setUser] = useState();
-	const [userData, setUserData] = useState({
-		service: '',
-		time: '',
-		customer_name: '',
-		customer_phone: '',
-		message: '',
-		date: new Date(),
-		barbery: '',
-	});
+
 	const [userParsed, setUserParsed] = useState('');
 
 	const handleOpen = async booking => {
 		console.log(booking);
 
 		setModalShow(true);
-
-		setUserData({
-			...booking,
-			has_been_read: true,
-		});
 
 		setUser(booking);
 
@@ -140,18 +127,18 @@ function Canvase({ eventsWithDateTime, getBookingFc }) {
 								return (
 									<div
 										key={booking.id}
-										className={`notification d-flex p-2 ${
+										className={`notification d-flex  p-2 ${
 											booking.has_been_read === false
 												? 'border border-warning'
 												: ''
 										} `}
 										onClick={() => handleOpen(booking)}
 									>
-										<div className='col-md-6'>
+										<div className='col-6 text-center '>
 											<h5>{booking.barbery}</h5>
 											<p>{booking.customer_name}</p>
 										</div>
-										<div className='col-md-6'>
+										<div className='col-6 text-center'>
 											<p>{booking.date}</p>
 											<p>{booking.customer_phone}</p>
 										</div>

@@ -105,7 +105,7 @@ export default function BigCalendar() {
 	if (booking) {
 		for (const b in booking) {
 			for (const n in barber) {
-				if (booking[b].service === barber[n].id) {
+				if (booking[b].barbery === barber[n].id) {
 					booking[b].barbery = barber[n].barber_name;
 				}
 			}
@@ -131,59 +131,61 @@ export default function BigCalendar() {
 		...booking,
 		datetime: new Date(`${booking.date}T${booking.time}`),
 	}));
-
+	console.log(eventsWithDateTime);
 	const onSelectEvent = calEvent => {
 		setUser(calEvent);
 		setModalShow(true);
 	};
 	return (
 		<div>
-			<div className='container-fluid'>
-				<div className='row mt-5'>
-					{modalShow ? (
-						<div className='col-12'>
-							<ModalCalendar
-								user={user}
-								show={modalShow}
-								onHide={() => setModalShow(false)}
-								getBookingFc={getBookingFc}
-								csrf={csrf}
-							/>
+			{booking && (
+				<div className='container-fluid'>
+					<div className='row mt-5'>
+						{modalShow ? (
+							<div className='col-12'>
+								<ModalCalendar
+									user={user}
+									show={modalShow}
+									onHide={() => setModalShow(false)}
+									getBookingFc={getBookingFc}
+									csrf={csrf}
+								/>
+							</div>
+						) : (
+							''
+						)}
+						<div className='row g-1 justify-content-end'>
+							{' '}
+							<div className='col-md-3 text-end '>
+								<Canvase
+									getBookingFc={getBookingFc}
+									user={user}
+									eventsWithDateTime={eventsWithDateTime}
+								/>
+							</div>
 						</div>
-					) : (
-						''
-					)}
-					<div className='row g-1 justify-content-end'>
-						{' '}
-						<div className='col-md-3 text-end '>
-							<Canvase
-								getBookingFc={getBookingFc}
-								user={user}
-								eventsWithDateTime={eventsWithDateTime}
-							/>
-						</div>
-					</div>
 
-					<div className='col-12'>
-						<Calendar
-							localizer={localizer}
-							events={eventsWithDateTime}
-							titleAccessor={booking =>
-								`${booking.read ? '' : 'New '}${booking.barbery} - ${
-									booking.service
-								} - ${booking.date} - ${booking.time} - ${
-									booking.customer_phone
-								}`
-							}
-							startAccessor={booking => booking.datetime}
-							endAccessor={booking => booking.datetime}
-							style={{ height: 500 }}
-							popup={true}
-							onSelectEvent={onSelectEvent}
-						/>
+						<div className='col-12'>
+							<Calendar
+								localizer={localizer}
+								events={eventsWithDateTime}
+								titleAccessor={booking =>
+									`${booking.read ? '' : 'New '}${booking.barbery} - ${
+										booking.service
+									} - ${booking.date} - ${booking.time} - ${
+										booking.customer_phone
+									}`
+								}
+								startAccessor={booking => booking.datetime}
+								endAccessor={booking => booking.datetime}
+								style={{ height: 500 }}
+								popup={true}
+								onSelectEvent={onSelectEvent}
+							/>
+						</div>
 					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 }
