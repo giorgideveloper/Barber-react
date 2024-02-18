@@ -810,6 +810,10 @@ form button {
   background-color: #707070 !important;
 }
 
+.rbc-btn-group>button:not(:first-child):not(:last-child) {
+  display: none;
+}
+
 @media (max-width: 426px) {
   .rbc-day-bg {
     height: 100% !important;
