@@ -58,7 +58,7 @@ function Canvase({ eventsWithDateTime, getBookingFc }) {
 			});
 		} //Todo
 	}
-
+	console.log(eventsWithDateTime);
 	return (
 		<>
 			{modalShow ? (
@@ -122,7 +122,7 @@ function Canvase({ eventsWithDateTime, getBookingFc }) {
 						{eventsWithDateTime.map(booking => {
 							if (
 								booking.has_been_read === false ||
-								booking.confirmed === false
+								(booking.has_been_read === true && booking.confirmed === false)
 							) {
 								return (
 									<div

@@ -131,7 +131,7 @@ export default function BigCalendar() {
 		...booking,
 		datetime: new Date(`${booking.date}T${booking.time}`),
 	}));
-	console.log(eventsWithDateTime);
+
 	const onSelectEvent = calEvent => {
 		setUser(calEvent);
 		setModalShow(true);
@@ -170,11 +170,11 @@ export default function BigCalendar() {
 								localizer={localizer}
 								events={eventsWithDateTime}
 								titleAccessor={booking =>
-									`${booking.read ? '' : 'New '}${booking.barbery} - ${
-										booking.service
-									} - ${booking.date} - ${booking.time} - ${
-										booking.customer_phone
-									}`
+									`${booking.has_been_read ? '' : 'New - '}${
+										booking.barbery
+									} - ${booking.service} - ${booking.date} - ${
+										booking.time
+									} - ${booking.customer_phone}`
 								}
 								startAccessor={booking => booking.datetime}
 								endAccessor={booking => booking.datetime}
