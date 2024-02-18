@@ -787,7 +787,28 @@ form button {
   vertical-align: middle !important;
 }
 
-;
+.offcanvas {
+  background-color: #363636 !important;
+  color: #fff !important;
+}
+
+.canvase-dropdown button {
+  width: 100%;
+  border-radius: 1px;
+  height: 42px
+}
+
+.offcanvas-header {
+  border-bottom: 1px solid #cf814d;
+}
+
+.notification {
+  cursor: pointer;
+}
+
+.notification:hover {
+  background-color: #707070 !important;
+}
 
 @media (max-width: 426px) {
   .rbc-day-bg {

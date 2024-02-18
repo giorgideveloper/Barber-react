@@ -39,6 +39,7 @@ export default function BigCalendar() {
 	const [user, setUser] = useState();
 	const [modalShow, setModalShow] = useState(false);
 	const [csrf, setCsrf] = useState('');
+
 	// get csrfToken
 	useEffect(() => {
 		const getCsrf = async () => {
@@ -168,15 +169,11 @@ export default function BigCalendar() {
 							localizer={localizer}
 							events={eventsWithDateTime}
 							titleAccessor={booking =>
-								`${
-									booking.read ? (
-										''
-									) : (
-										<span class='badge bg-secondary'>New</span>
-									)
-								}${booking.barbery} - ${booking.service} - ${booking.date} - ${
-									booking.time
-								} - ${booking.customer_phone}`
+								`${booking.read ? '' : 'New '}${booking.barbery} - ${
+									booking.service
+								} - ${booking.date} - ${booking.time} - ${
+									booking.customer_phone
+								}`
 							}
 							startAccessor={booking => booking.datetime}
 							endAccessor={booking => booking.datetime}
