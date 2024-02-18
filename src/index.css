@@ -814,6 +814,10 @@ form button {
   display: none;
 }
 
+.rbc-agenda-table td {
+  cursor: pointer !important;
+}
+
 @media (max-width: 426px) {
   .rbc-day-bg {
     height: 100% !important;
