@@ -22,7 +22,6 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 	const handleShow = () => setShow(true);
 	const [modalShow, setModalShow] = useState(false);
 	const [user, setUser] = useState({ id: null /* other properties */ });
-
 	const [userParsed, setUserParsed] = useState('');
 
 	const handleOpen = async booking => {
@@ -93,6 +92,7 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 						show={modalShow}
 						onHide={() => setModalShow(false)}
 						getBookingFc={getBookingFc}
+						csrf={csrf}
 					/>
 				</div>
 			) : (
