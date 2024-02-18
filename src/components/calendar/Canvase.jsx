@@ -171,7 +171,8 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 											</div>
 											<div className='col-6 text-center'>
 												<p>
-													{booking.date} <span>{booking.time.slice(0, 5)}</span>
+													{booking.date}{' '}
+													<span>{booking?.time.slice(0, 5)}</span>
 												</p>
 												<p>{booking.customer_phone}</p>
 											</div>
