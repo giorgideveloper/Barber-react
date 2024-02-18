@@ -30,11 +30,11 @@ export const usersBookingsId = async id => {
 export const usersBookingsPut = async (id, data, csrf) => {
 	try {
 		const res = await axios.put(`${baseUrl}/bookings/${id}`, data, {
-			headers: {
-				Accept: 'application/json',
-				'X-CSRFToken': csrf,
-				mode: 'same-origin',
-			},
+			// headers: {
+			// 	Accept: 'application/json',
+			// 	'X-CSRFToken': csrf,
+			// 	mode: 'same-origin',
+			// },
 		});
 
 		return res;

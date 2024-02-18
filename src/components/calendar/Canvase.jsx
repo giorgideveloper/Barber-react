@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { usersBookingsId, usersBookingsPut } from '../../api/api';
@@ -21,34 +21,59 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 	const [modalShow, setModalShow] = useState(false);
-	const [user, setUser] = useState();
+	const [user, setUser] = useState({ id: null /* other properties */ });
 
 	const [userParsed, setUserParsed] = useState('');
 
 	const handleOpen = async booking => {
-		console.log(booking);
-
-		setModalShow(true);
-
-		setUser(booking);
-
-		try {
-			const res = await usersBookingsId(booking.id);
-			if (res.status === 200) {
-				setUserParsed({ ...res.data, has_been_read: true });
-				// setLoading(true);
-			} else {
-				console.log('error barber data');
-			}
-			await usersBookingsPut(booking.id, userParsed, csrf).then(response => {
-				console.log('User data updated successfully:', response.data);
-				getBookingFc();
-				setShow(false);
-			});
-		} catch (error) {
-			throw error;
+		if (booking) {
+			await fetchHandle(booking);
+			setModalShow(true);
+			setUser(booking);
+			console.log(booking.id);
 		}
 	};
+
+	const fetchHandle = async booking => {
+		if (booking) {
+			try {
+				const res = await usersBookingsId(booking.id);
+
+				if (res.status === 200) {
+					// Update the state with the fetched data
+					await setUserParsed(prevData => ({
+						...prevData,
+						...res.data,
+						has_been_read: true,
+					}));
+					updateUser();
+				} else {
+					console.log('Error fetching user data');
+				}
+			} catch (error) {
+				console.error('Error in fetchHandle:', error);
+			}
+		}
+	};
+
+	const updateUser = async () => {
+		if (userParsed.id) {
+			try {
+				await usersBookingsPut(userParsed.id, userParsed, csrf).then(
+					response => {
+						console.log('User data updated successfully:', response.data);
+						getBookingFc();
+						setShow(false);
+					}
+				);
+			} catch (error) {
+				console.error('Error updating user data:', error);
+			}
+		}
+	};
+	useEffect(() => {
+		updateUser();
+	}, [userParsed]);
 
 	let counter = [];
 	for (const booked in eventsWithDateTime) {
@@ -58,10 +83,10 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 			});
 		} //Todo
 	}
-	console.log(eventsWithDateTime);
+
 	return (
 		<>
-			{modalShow ? (
+			{eventsWithDateTime && modalShow ? (
 				<div className='col-12'>
 					<ModalCalendar
 						user={user}
@@ -77,16 +102,16 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 				ახალი ჯავშანი{' '}
 				<span className='badge text-bg-primary'>{counter.length}</span>
 			</Button>
-
-			<Offcanvas show={show} placement={'end'} onHide={handleClose}>
-				<Offcanvas.Header closeButton>
-					<div className='container'>
-						{' '}
-						<div className='row g-3'>
-							<div className='col-12'>
-								<h5>ნოთიფიკაციები</h5>
-							</div>{' '}
-							{/* <div className='col-md-6 canvase-piker'>
+			{eventsWithDateTime ? (
+				<Offcanvas show={show} placement={'end'} onHide={handleClose}>
+					<Offcanvas.Header closeButton>
+						<div className='container'>
+							{' '}
+							<div className='row g-3'>
+								<div className='col-12'>
+									<h5>ნოთიფიკაციები</h5>
+								</div>{' '}
+								{/* <div className='col-md-6 canvase-piker'>
 								{' '}
 								<DatePicker
 									selected={new Date()}
@@ -114,42 +139,46 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 									</Dropdown.Item>
 								</DropdownButton>
 							</div>{' '} */}
-						</div>{' '}
-					</div>
-				</Offcanvas.Header>
-				<Offcanvas.Body>
-					<div className='row g-3 align-items-center'>
-						{eventsWithDateTime.map(booking => {
-							if (
-								booking.has_been_read === false ||
-								(booking.has_been_read === true && booking.confirmed === false)
-							) {
-								return (
-									<div
-										key={booking.id}
-										className={`notification d-flex  p-2 ${
-											booking.has_been_read === false
-												? 'border border-warning'
-												: ''
-										} `}
-										onClick={() => handleOpen(booking)}
-									>
-										<div className='col-6 text-center '>
-											<h5>{booking.barbery}</h5>
-											<p>{booking.customer_name}</p>
+							</div>{' '}
+						</div>
+					</Offcanvas.Header>
+					<Offcanvas.Body>
+						<div className='row g-3 align-items-center'>
+							{eventsWithDateTime.map(booking => {
+								if (
+									booking.has_been_read === false ||
+									(booking.has_been_read === true &&
+										booking.confirmed === false)
+								) {
+									return (
+										<div
+											key={booking.id}
+											className={`notification d-flex  p-2 ${
+												booking.has_been_read === false
+													? 'border border-warning'
+													: ''
+											} `}
+											onClick={() => handleOpen(booking)}
+										>
+											<div className='col-6 text-center '>
+												<h5>{booking.barbery}</h5>
+												<p>{booking.customer_name}</p>
+											</div>
+											<div className='col-6 text-center'>
+												<p>{booking.date}</p>
+												<p>{booking.customer_phone}</p>
+											</div>
 										</div>
-										<div className='col-6 text-center'>
-											<p>{booking.date}</p>
-											<p>{booking.customer_phone}</p>
-										</div>
-									</div>
-								);
-							}
-							return null;
-						})}
-					</div>
-				</Offcanvas.Body>
-			</Offcanvas>
+									);
+								}
+								return null;
+							})}
+						</div>
+					</Offcanvas.Body>
+				</Offcanvas>
+			) : (
+				'Loading'
+			)}
 		</>
 	);
 }
