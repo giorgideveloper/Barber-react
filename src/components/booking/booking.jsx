@@ -28,6 +28,7 @@ export default function Booking() {
 	//loading
 	const [loading, setLoading] = useState(false);
 	const handleCloseModal = () => setShowModal(false);
+	const [phoneNamberValid, SetPhoneNamberValid] = useState(true);
 	// const [roomId, setRoomId] = useState(null);
 	const [user, setUser] = useState({
 		service: null,
@@ -108,6 +109,7 @@ export default function Booking() {
 				toast('info', 'მონიშნეთ ყველა ველიი');
 			}
 		} catch (err) {
+			SetPhoneNamberValid(false);
 			console.log('error', 'სმს კოდის გამოგზავნა ვერ მოხერხდა');
 		}
 	};
@@ -131,8 +133,7 @@ export default function Booking() {
 			toast('error', 'სმს კოდი არასწორია');
 		}
 	};
-	// console.log('Meta User', roomId);
-	// Get barber
+
 	useEffect(() => {
 		// setRoomId(document.getElementsByName('user')[0]?.content);
 		barberData();
@@ -243,7 +244,9 @@ export default function Booking() {
 											<div className='form-floating'>
 												<input
 													type='tel'
-													className='form-control shadow-sm from-inputs mt-4'
+													className={`form-control shadow-sm from-inputs mt-4 		${
+														phoneNamberValid ? '' : 'is-invalid'
+													}`}
 													id='validationCustom01'
 													placeholder='ნომერი'
 													name='customer_phone'
@@ -252,6 +255,12 @@ export default function Booking() {
 												/>
 												<label htmlFor='validationCustom01'>ტელეფონი</label>
 												<div className='valid-feedback'>Looks good!</div>
+												<div
+													id='validationServerUsernameFeedback'
+													className='invalid-feedback'
+												>
+													ტელეფონის ნომერი არასწორია
+												</div>
 											</div>
 										</div>
 									</div>

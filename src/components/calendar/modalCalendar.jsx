@@ -117,7 +117,7 @@ export default function ModalCalendar(props) {
 			date,
 		}));
 	};
-	console.log(userData);
+
 	//Editing
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -141,19 +141,20 @@ export default function ModalCalendar(props) {
 
 			// Optionally, you can perform additional actions after successful delete
 		} catch (error) {
-			console.error('Error deleting booking:', error);
+			console.log('Error deleting booking:', error);
 			// Handle the error appropriately, either by logging or displaying a message to the user
 		}
 	};
 
 	const handleConfirm = async () => {
 		try {
-			setUserData(prevData => ({
-				...prevData,
+			setUserData({
+				...userData,
 				confirmed: true,
-			}));
+			});
 			await usersBookingsPut(props.user.id, userData, csrf).then(response => {
-				console.log('User data updated successfully:', response.data);
+				console.log('🚀 ~ awaitusersBookingsPut ~ userData:', userData);
+				console.log('User data Confirm successfully:', response.data);
 				getBookingFc();
 				onSelectEvent();
 				toast('success', 'ჯავშანი დადასტურებულია');
@@ -165,7 +166,7 @@ export default function ModalCalendar(props) {
 	const onSelectEvent = () => {
 		props.onHide(false);
 	};
-	console.log(props.user.barbery);
+
 	return (
 		<>
 			<Modal
@@ -295,7 +296,9 @@ export default function ModalCalendar(props) {
 							<div className='col-12 col-md-4 text-center primer'>
 								<button
 									type='submit'
-									className='btn btn-primary  w-100'
+									className={`btn  ${
+										props.user.confirmed ? 'disabled' : 'btn-primary'
+									}  w-100`}
 									onClick={() => handleConfirm(props.user.id)}
 								>
 									დადასტურება
