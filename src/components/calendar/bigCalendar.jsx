@@ -156,7 +156,7 @@ export default function BigCalendar() {
 						)}
 						<div className='row g-1 justify-content-end'>
 							{' '}
-							<div className='col-md-3 text-end '>
+							<div className='col-md-3 text-end p-2'>
 								<Canvase
 									getBookingFc={getBookingFc}
 									user={user}

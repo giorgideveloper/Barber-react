@@ -656,7 +656,7 @@ form button {
 .rbc-btn-group button:active,
 .rbc-btn-group button:visited,
 .rbc-btn-group button:focus {
-  background-color: #2c1d1352 !important;
+  background-color: #cf814d !important;
   border: 1px solid #cf814d00 !important;
 }
 
@@ -682,7 +682,7 @@ form button {
 }
 
 .rbc-toolbar button:active, .rbc-toolbar button.rbc-active {
-  background-color: #2c1d13 !important;
+  background-color: #cf814d !important;
   border: 1px solid #2c1d13 !important;
 }
 
@@ -812,6 +812,12 @@ form button {
 
 .rbc-btn-group>button:not(:first-child):not(:last-child) {
   display: none;
+}
+
+.notification-underline ul {
+  text-decoration: none;
+  list-style: none;
+
 }
 
 .rbc-agenda-table td {
