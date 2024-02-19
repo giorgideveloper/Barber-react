@@ -1,5 +1,5 @@
 import React from 'react';
-import BorderExample from '../booking/spiner';
+import BorderExample from '../booking/spiner.jsx';
 
 export default function Notification({ eventsWithDateTime, handleOpen, show }) {
 	return (
