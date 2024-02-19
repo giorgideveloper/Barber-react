@@ -30,11 +30,11 @@ export const usersBookingsId = async id => {
 export const usersBookingsPut = async (id, data, csrf) => {
 	try {
 		const res = await axios.put(`${baseUrl}/bookings/${id}`, data, {
-			// headers: {
-			// 	Accept: 'application/json',
-			// 	'X-CSRFToken': csrf,
-			// 	mode: 'same-origin',
-			// },
+			headers: {
+				Accept: 'application/json',
+				'X-CSRFToken': csrf,
+				mode: 'same-origin',
+			},
 		});
 
 		return res;
@@ -132,12 +132,12 @@ export const bookingCreate = async data => {
 export const bookingDelete = async (id, csrf) => {
 	try {
 		const res = await axios.delete(`${baseUrl}/bookings/${id}`, {
-			// headers: {
-			// 	Accept: 'application/json',
-			// 	'Content-Type': 'application/json',
-			// 	'X-CSRFToken': csrf,
-			// 	mode: 'same-origin', // Do not send CSRF token to another
-			// },
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				'X-CSRFToken': csrf,
+				mode: 'same-origin', // Do not send CSRF token to another
+			},
 		});
 		return res;
 	} catch (err) {

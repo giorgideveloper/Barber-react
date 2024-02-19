@@ -88,17 +88,23 @@ export default function ModalCalendar(props) {
 		allBarbers();
 	}, []);
 
-	for (const n in hours) {
-		if (hours[n].id === userData.time) {
-			setHours(prevHours =>
-				prevHours.filter(hour => hour.id !== userData.time)
-			);
+	if (hours) {
+		for (const n in hours) {
+			if (hours[n].id === userData.time) {
+				setHours(prevHours =>
+					prevHours.filter(hour => hour.id !== userData.time)
+				);
+			}
 		}
 	}
 
-	for (const n in barber) {
-		if (barber[n].id === userData.barbery) {
-			setBarber(prevHours => prevHours.filter(b => b.id !== userData.barbery));
+	if (barber) {
+		for (const n in barber) {
+			if (barber[n].id === userData.barbery) {
+				setBarber(prevHours =>
+					prevHours.filter(b => b.id !== userData.barbery)
+				);
+			}
 		}
 	}
 
@@ -122,11 +128,12 @@ export default function ModalCalendar(props) {
 	const handleSubmit = async e => {
 		e.preventDefault();
 		try {
-			await usersBookingsPut(props.user.id, userData, csrf).then(response => {
+			const res = await usersBookingsPut(props.user.id, userData, csrf);
+			if (res.status === 200) {
 				getBookingFc();
 				onSelectEvent();
 				toast('success', 'ჯავშანი დარედაქტირებულია');
-			});
+			}
 		} catch (error) {
 			throw error;
 		}
@@ -134,31 +141,31 @@ export default function ModalCalendar(props) {
 
 	const handleDelete = async eventId => {
 		try {
-			await bookingDelete(eventId, csrf);
-			getBookingFc();
-			onSelectEvent();
-			toast('success', 'ჯავშანი გაუქმებულია');
-
-			// Optionally, you can perform additional actions after successful delete
+			const res = await bookingDelete(eventId, csrf);
+			if (res.status === 200) {
+				getBookingFc();
+				onSelectEvent();
+				toast('success', 'ჯავშანი გაუქმებულია');
+			}
 		} catch (error) {
 			console.log('Error deleting booking:', error);
-			// Handle the error appropriately, either by logging or displaying a message to the user
 		}
 	};
 
-	const handleConfirm = async () => {
+	const handleConfirm = async id => {
 		try {
 			setUserData({
 				...userData,
 				confirmed: true,
+				has_been_read: true,
 			});
-			await usersBookingsPut(props.user.id, userData, csrf).then(response => {
-				console.log('🚀 ~ awaitusersBookingsPut ~ userData:', userData);
-				console.log('User data Confirm successfully:', response.data);
+			const res = await usersBookingsPut(id, userData, csrf);
+			if (res.status === 200) {
+				console.log('User data Confirm successfully:');
 				getBookingFc();
 				onSelectEvent();
 				toast('success', 'ჯავშანი დადასტურებულია');
-			});
+			}
 		} catch (error) {
 			throw error;
 		}

@@ -47,11 +47,10 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 
 				if (res.status === 200) {
 					// Update the state with the fetched data
-					await setUserParsed(prevData => ({
-						...prevData,
+					setUserParsed({
 						...res.data,
 						has_been_read: true,
-					}));
+					});
 					updateUser();
 				} else {
 					console.log('Error fetching user data');
@@ -160,6 +159,7 @@ function Canvase({ eventsWithDateTime, getBookingFc, csrf }) {
 						<Notification
 							eventsWithDateTime={eventsWithDateTime}
 							handleOpen={handleOpen}
+							show={show}
 						/>
 					</Offcanvas.Body>
 				</Offcanvas>
