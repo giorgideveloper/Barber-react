@@ -27,23 +27,42 @@ export default function ModalCalendar(props) {
 	const { getBookingFc, csrf } = props;
 	const [hours, setHours] = useState('');
 	const [barber, setBarber] = useState('');
-	const [userData, setUserData] = useState({
-		service: '',
+	const [formData, setFormData] = useState({
+		id: null,
+		service: null,
 		time: '',
 		customer_name: '',
 		customer_phone: '',
 		message: '',
 		date: new Date(),
-		barbery: '',
+		confirmed: false,
+		has_been_read: false,
+		barbery: null,
 	});
 
-	// get user data whit id
+	const [userData, setUserData] = useState({
+		id: null,
+		service: null,
+		time: null,
+		customer_name: '',
+		customer_phone: '',
+		message: '',
+		date: new Date(),
+		confirmed: false,
+		has_been_read: false,
+		barbery: null,
+	});
+	console.log('🚀 ~ ModalCalendar ~ formData:', formData);
+	// Get user data whit id
 	useEffect(() => {
+		console.log('🚀 ~ ModalCalendar ~ userData:', userData);
 		const fetchUserData = async () => {
 			try {
 				const res = await usersBookingsId(props.user.id);
 				if (res.status === 200) {
 					setUserData(res.data);
+					setFormData({ ...userData, date: res.data.date });
+
 					// setLoading(true);
 				} else {
 					console.log('error barber data');
@@ -110,25 +129,36 @@ export default function ModalCalendar(props) {
 
 	const handleInputChange = e => {
 		const { name, value } = e.target;
-		setUserData(prevData => ({
-			...prevData,
+		setFormData({
+			...userData,
 			[name]: value,
-		}));
+		});
 	};
 
 	const handleDateChange = e => {
 		const date = new Date(e).toISOString().split('T')[0];
-		setUserData(prevData => ({
-			...prevData,
-			date,
-		}));
+		setFormData({
+			...userData,
+			date: date,
+		});
 	};
 
 	//Editing
-	const handleSubmit = async e => {
-		e.preventDefault();
+	const handleSubmit = async id => {
 		try {
-			const res = await usersBookingsPut(props.user.id, userData, csrf);
+			const res = await usersBookingsPut(
+				id,
+				{
+					message: formData.message,
+					date: formData.date,
+					service: userData.service,
+					time: formData.time,
+					customer_name: userData.customer_name,
+					customer_phone: userData.customer_phone,
+					barbery: formData.barbery,
+				},
+				csrf
+			);
 			if (res.status === 200) {
 				getBookingFc();
 				onSelectEvent();
@@ -139,27 +169,18 @@ export default function ModalCalendar(props) {
 		}
 	};
 
-	const handleDelete = async eventId => {
+	// Confirm
+	const handleConfirm = async client => {
+		console.log(client);
+		toast('success', 'ჯავშანი დადასტურებულია');
 		try {
-			const res = await bookingDelete(eventId, csrf);
-			if (res.status === 200) {
-				getBookingFc();
-				onSelectEvent();
-				toast('success', 'ჯავშანი გაუქმებულია');
-			}
-		} catch (error) {
-			console.log('Error deleting booking:', error);
-		}
-	};
+			// Fetch update
+			const res = await usersBookingsPut(
+				client.id,
+				{ ...userData, confirmed: true, has_been_read: true },
+				csrf
+			);
 
-	const handleConfirm = async id => {
-		try {
-			setUserData({
-				...userData,
-				confirmed: true,
-				has_been_read: true,
-			});
-			const res = await usersBookingsPut(id, userData, csrf);
 			if (res.status === 200) {
 				console.log('User data Confirm successfully:');
 				getBookingFc();
@@ -170,6 +191,22 @@ export default function ModalCalendar(props) {
 			throw error;
 		}
 	};
+
+	// Delete
+	const handleDelete = async eventId => {
+		try {
+			// Fetch Delete
+			const res = await bookingDelete(eventId, csrf);
+			if (res.status === 204) {
+				getBookingFc();
+				onSelectEvent();
+				toast('success', 'ჯავშანი გაუქმებულია');
+			}
+		} catch (error) {
+			console.log('Error deleting booking:', error);
+		}
+	};
+
 	const onSelectEvent = () => {
 		props.onHide(false);
 	};
@@ -189,7 +226,7 @@ export default function ModalCalendar(props) {
 				</Modal.Header>
 				<Modal.Body>
 					<div className='container'>
-						<form className='row g-4 calendar-form' onSubmit={handleSubmit}>
+						<form className='row g-4 calendar-form'>
 							<div className='col-12 col-md-6'>
 								<h5>ბარბერი</h5>
 								<Form.Select
@@ -226,7 +263,7 @@ export default function ModalCalendar(props) {
 							<div className='col-12 col-md-6'>
 								<h5>ვიზიტის დღე</h5>
 								<DatePicker
-									selected={new Date(userData.date)}
+									selected={new Date(formData.date)}
 									// eslint-disable-next-line no-undef
 									onChange={handleDateChange}
 									dateFormat='MMMM d, yyyy'
@@ -287,14 +324,18 @@ export default function ModalCalendar(props) {
 								/>
 							</div>
 							<div className='col-6 col-md-4 text-center '>
-								<button type='submit' className='btn bg-success w-100'>
+								<button
+									type='button'
+									onClick={() => handleSubmit(props.user.id)}
+									className='btn bg-success w-100'
+								>
 									რედაქტირება
 								</button>
 							</div>
 							<div className='col-6 col-md-4 text-center '>
 								<button
 									onClick={() => handleDelete(props.user.id)}
-									type='submit'
+									type='button'
 									className='btn bg-opacity-75 bg-danger w-100'
 								>
 									წაშლა
@@ -302,11 +343,11 @@ export default function ModalCalendar(props) {
 							</div>
 							<div className='col-12 col-md-4 text-center primer'>
 								<button
-									type='submit'
+									type='button'
 									className={`btn  ${
 										props.user.confirmed ? 'disabled' : 'btn-primary'
 									}  w-100`}
-									onClick={() => handleConfirm(props.user.id)}
+									onClick={() => handleConfirm(props.user)}
 								>
 									დადასტურება
 								</button>
