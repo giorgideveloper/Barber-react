@@ -1,5 +1,9 @@
 import React from 'react';
 import BorderExample from '../booking/spiner.jsx';
+import { CiUser } from 'react-icons/ci';
+import { PiPhoneThin } from 'react-icons/pi';
+import { GoClock } from 'react-icons/go';
+import { IoCalendarOutline } from 'react-icons/io5';
 
 export default function Notification({ eventsWithDateTime, handleOpen, show }) {
 	return (
@@ -21,20 +25,15 @@ export default function Notification({ eventsWithDateTime, handleOpen, show }) {
 							return (
 								<div
 									key={booking.id}
-									className={`notification  d-flex  p-2 ${
+									className={`notification shadow bg-secondary bg-opacity-25  d-flex  p-2 ${
 										booking.has_been_read === false
 											? 'border border-warning'
 											: ''
 									} `}
 									onClick={() => handleOpen(booking)}
 								>
-									<div className='avatar d-flex align-content-center h-100'>
-										{' '}
-									</div>
-
-									<div className='col-md-7 notification-underline'>
+									<div className='col-md-6 notification-underline'>
 										<ul className='fs-6 d-flex '>
-											<span className='bg-danger border  border-danger rounded-circle p-2 h-50 mt-3'></span>
 											{/* <Image
 														height={50}
 														width={50}
@@ -42,22 +41,29 @@ export default function Notification({ eventsWithDateTime, handleOpen, show }) {
 														roundedCircle
 													/> */}
 											<ul>
-												<li>Barber: {booking.barbery}</li>
-												<li>Clinet: {booking.customer_name}</li>
+												<li>
+													<IoCalendarOutline /> {booking.date}
+												</li>
+												<li>
+													<CiUser /> {booking.customer_name}
+												</li>
 											</ul>
 										</ul>
 									</div>
-									<div className=' col-md-5 text-right notification-underline'>
+									<div className=' col-md-6 text-right notification-underline'>
 										<ul>
 											<li>
-												საათი:{' '}
+												<GoClock />{' '}
 												{booking &&
 												booking.time &&
 												typeof booking.time === 'string'
 													? booking.time.slice(0, 5)
 													: ''}
 											</li>
-											<li> {booking.customer_phone}</li>
+											<li>
+												{' '}
+												<PiPhoneThin /> {booking.customer_phone}
+											</li>
 										</ul>
 									</div>
 								</div>
