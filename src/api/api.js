@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'https://barbery.lumos.com.ge/booking';
+const baseUrl = 'https://theclippers.ge/booking';
 
 export const csrfBookings = async () => {
 	try {
