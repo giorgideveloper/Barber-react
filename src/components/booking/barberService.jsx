@@ -10,7 +10,7 @@ export default function BarberService({ barberService, data }) {
 							? 'Волосы'
 							: selectedLanguage === 'ka'
 							? 'თმა'
-							: ''
+							: 'თმა'
 						).toString()}
 					</h5>
 
@@ -40,7 +40,7 @@ export default function BarberService({ barberService, data }) {
 							? 'Борода'
 							: selectedLanguage === 'ka'
 							? 'წვერი'
-							: ''
+							: 'წვერი'
 						).toString()}
 					</h5>
 					{barberService.map(res => {
@@ -69,7 +69,7 @@ export default function BarberService({ barberService, data }) {
 							? 'Общий'
 							: selectedLanguage === 'ka'
 							? 'ზოგადი'
-							: ''
+							: 'ზოგადი'
 						).toString()}
 					</h5>
 					{barberService.map(res => {

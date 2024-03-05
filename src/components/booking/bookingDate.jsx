@@ -54,7 +54,7 @@ export default function BookingDate({ setFreeHour, setDay, barberId }) {
 					? 'Выберите дату'
 					: language === 'ka'
 					? 'აირჩიე დრო'
-					: ''
+					: 'აირჩიე დრო'
 				).toString()}
 			</h4>
 			<div className='row g-1'>

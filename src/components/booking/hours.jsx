@@ -47,7 +47,7 @@ export default function Hours({ bookings, setFreeHour }) {
 					? 'Выберите время'
 					: language === 'ka'
 					? 'მონიშნე დრო'
-					: ''
+					: 'მონიშნე დრო'
 				).toString()}
 			</h4>
 			{finalBookings &&

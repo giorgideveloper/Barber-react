@@ -94,6 +94,14 @@ export default function Booking() {
 					console.log('error service');
 				}
 			}
+			if (selectedLanguage === null) {
+				const res = await service();
+				if (res.status === 200) {
+					setBarberService(res.data.results);
+				} else {
+					console.log('error service');
+				}
+			}
 		} catch (error) {
 			throw error;
 		}
@@ -161,7 +169,11 @@ export default function Booking() {
 		en: 'barber_name_eng',
 	};
 	const propertyName = languageCodeToPropertyName[language] || '';
-
+	// const labelMap = {
+	// 	ru: 'Комментарий',
+	// 	ka: 'კომენტარი',
+	// 	'': 'კომენტარი', // Default value when language is empty
+	// };
 	return (
 		<>
 			{loading ? (
@@ -184,7 +196,7 @@ export default function Booking() {
 												? 'Забронировать'
 												: language === 'ka'
 												? 'ჯავშანის გაკეთება'
-												: ''
+												: 'ჯავშანის გაკეთება'
 											).toString()}
 										</h1>
 										<div className='booking-solid'></div>
@@ -215,7 +227,7 @@ export default function Booking() {
 												? 'Выберите услугу'
 												: language === 'ka'
 												? 'აირჩიეთ სერვისი'
-												: ''
+												: 'აირჩიეთ სერვისი'
 											).toString()}
 										</h4>
 										<BarberService barberService={barberService} data={data} />
@@ -229,7 +241,7 @@ export default function Booking() {
 												? 'Выберите барбера'
 												: language === 'ka'
 												? 'აირჩიეთ ბარბერი'
-												: ''
+												: 'აირჩიეთ ბარბერი'
 											).toString()}
 										</h4>
 
@@ -276,13 +288,13 @@ export default function Booking() {
 								</div>
 
 								<div className='col-12 col-md-6'>
-									<div className='row mt-3 '>
-										<h4 className='solid'>
+									<div className='row mt-3  '>
+										<h4 className='solid mb-5 '>
 											{(language === 'ru'
 												? 'Ваша информация'
 												: language === 'ka'
 												? 'შენი ინფორმაცია'
-												: ''
+												: 'შენი ინფორმაცია'
 											).toString()}
 										</h4>
 										<div className='col-md-12'>
@@ -307,7 +319,7 @@ export default function Booking() {
 														? 'Имя'
 														: language === 'ka'
 														? 'სახელი'
-														: ''
+														: 'სახელი'
 													).toString()}
 												</label>
 											</div>
@@ -324,7 +336,7 @@ export default function Booking() {
 														? 'Телефон'
 														: language === 'ka'
 														? 'ტელეფონი'
-														: ''
+														: 'ტელეფონი'
 													).toString()}
 													name='customer_phone'
 													onChange={e => setMobile(e.target.value)}
@@ -335,7 +347,7 @@ export default function Booking() {
 														? 'Телефон'
 														: language === 'ka'
 														? 'ტელეფონი'
-														: ''
+														: 'ტელეფონი'
 													).toString()}
 												</label>
 												<div className='valid-feedback'>Looks good!</div>
@@ -364,7 +376,7 @@ export default function Booking() {
 												? 'Комментарий'
 												: language === 'ka'
 												? 'კომენტარი'
-												: ''
+												: 'კომენტარი'
 											).toString()}
 										</label>
 									</div>
@@ -376,7 +388,7 @@ export default function Booking() {
 												? 'Бронировать'
 												: language === 'ka'
 												? 'ჯავშანის გაკეთება'
-												: ''
+												: 'ჯავშანის გაკეთება'
 											).toString()}
 										</button>
 									</div>

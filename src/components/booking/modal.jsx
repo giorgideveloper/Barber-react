@@ -31,7 +31,7 @@ const MyModal = ({
 						? 'Введите СМС-код'
 						: language === 'ka'
 						? 'შეიყვანეთ სმს კოდი'
-						: ''
+						: 'შეიყვანეთ სმს კოდი'
 					).toString()}
 				</Modal.Title>
 			</Modal.Header>
@@ -48,7 +48,7 @@ const MyModal = ({
 						? 'Отправлять'
 						: language === 'ka'
 						? 'გაგზავნა'
-						: ''
+						: 'გაგზავნა'
 					).toString()}
 				</Button>
 			</Modal.Footer>
