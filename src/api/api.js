@@ -69,6 +69,14 @@ export const service = async () => {
 		throw err;
 	}
 };
+export const serviceRu = async () => {
+	try {
+		const res = await axios.get(`${baseUrl}/services-ru/`);
+		return res;
+	} catch (err) {
+		throw err;
+	}
+};
 export const bookingTime = async (time, barberId) => {
 	try {
 		const res = await axios.get(

@@ -5,6 +5,7 @@ import {
 	bookingCreate,
 	bookingSmsCode,
 	service,
+	serviceRu,
 } from '../../api/api.js';
 
 import Swal from 'sweetalert2';
@@ -13,6 +14,7 @@ import MyModal from './modal.jsx';
 import BorderExample from './spiner.jsx';
 import BarberService from './barberService.jsx';
 import toast from '../../helper/toast.js';
+import SelectBasicExample from './dropdown.jsx';
 
 export default function Booking() {
 	const [day, setDay] = useState('');
@@ -30,6 +32,7 @@ export default function Booking() {
 	const handleCloseModal = () => setShowModal(false);
 	const [phoneNamberValid, SetPhoneNamberValid] = useState(true);
 	// const [roomId, setRoomId] = useState(null);
+	const language = localStorage.getItem('selectedLanguage');
 	const [user, setUser] = useState({
 		service: null,
 		customer_name: '',
@@ -73,11 +76,23 @@ export default function Booking() {
 	// Get service
 	const getService = async () => {
 		try {
-			const res = await service();
-			if (res.status === 200) {
-				setBarberService(res.data.results);
-			} else {
-				console.log('error service');
+			const selectedLanguage = localStorage.getItem('selectedLanguage');
+
+			if (selectedLanguage === 'ru') {
+				const res = await serviceRu();
+				if (res.status === 200) {
+					setBarberService(res.data.results);
+				} else {
+					console.log('error service');
+				}
+			}
+			if (selectedLanguage === 'ka') {
+				const res = await service();
+				if (res.status === 200) {
+					setBarberService(res.data.results);
+				} else {
+					console.log('error service');
+				}
 			}
 		} catch (error) {
 			throw error;
@@ -139,6 +154,14 @@ export default function Booking() {
 		barberData();
 		getService();
 	}, []);
+
+	const languageCodeToPropertyName = {
+		ru: 'barber_name_ru',
+		ka: 'barber_name',
+		en: 'barber_name_eng',
+	};
+	const propertyName = languageCodeToPropertyName[language] || '';
+
 	return (
 		<>
 			{loading ? (
@@ -146,9 +169,24 @@ export default function Booking() {
 					<div className='container-fluid'>
 						<div className='row'>
 							<section className='booking-section'>
+								<div className='container'>
+									<div className='row justify-content-end'>
+										<div className='col-md-2 col-3'>
+											{' '}
+											<SelectBasicExample getService={getService} />
+										</div>
+									</div>
+								</div>
 								<div className='row'>
 									<div className=' booking-title '>
-										<h1>ჯავშანის გაკეთება</h1>
+										<h1>
+											{(language === 'ru'
+												? 'Забронировать'
+												: language === 'ka'
+												? 'ჯავშანის გაკეთება'
+												: ''
+											).toString()}
+										</h1>
 										<div className='booking-solid'></div>
 									</div>
 								</div>
@@ -172,14 +210,28 @@ export default function Booking() {
 							>
 								<div className='barber-checkbox'>
 									<div className='row'>
-										<h4 className='solid'>აირჩიეთ სერვისი</h4>
+										<h4 className='solid'>
+											{(language === 'ru'
+												? 'Выберите услугу'
+												: language === 'ka'
+												? 'აირჩიეთ სერვისი'
+												: ''
+											).toString()}
+										</h4>
 										<BarberService barberService={barberService} data={data} />
 									</div>
 								</div>
 
 								<div className='col-12 col-md-6 mt-3'>
 									<div className='row g-2 '>
-										<h4 className='solid'>აირჩიეთ ბარბერი</h4>
+										<h4 className='solid'>
+											{(language === 'ru'
+												? 'Выберите барбера'
+												: language === 'ka'
+												? 'აირჩიეთ ბარბერი'
+												: ''
+											).toString()}
+										</h4>
 
 										<div className='col-md'>
 											<div className='row g-2'>
@@ -204,7 +256,7 @@ export default function Booking() {
 																	<br />
 
 																	<p className='barber-name'>
-																		{res.barber_name}
+																		{res[propertyName]}
 																	</p>
 																</label>
 															))}
@@ -225,19 +277,39 @@ export default function Booking() {
 
 								<div className='col-12 col-md-6'>
 									<div className='row mt-3 '>
-										<h4 className='solid'>შენი ინფორმაცია</h4>
+										<h4 className='solid'>
+											{(language === 'ru'
+												? 'Ваша информация'
+												: language === 'ka'
+												? 'შენი ინფორმაცია'
+												: ''
+											).toString()}
+										</h4>
 										<div className='col-md-12'>
 											<div className='form-floating '>
 												<input
 													type='text'
 													className='form-control from-inputs shadow-sm'
 													id='validationDefault01'
-													placeholder='სახელი'
+													placeholder={(language === 'ru'
+														? 'Имя'
+														: language === 'ka'
+														? 'სახელი'
+														: ''
+													).toString()}
 													name='customer_name'
 													onChange={data}
 													required
 												/>
-												<label htmlFor='validationDefault01'> სახელი</label>
+												<label htmlFor='validationDefault01'>
+													{' '}
+													{(language === 'ru'
+														? 'Имя'
+														: language === 'ka'
+														? 'სახელი'
+														: ''
+													).toString()}
+												</label>
 											</div>
 										</div>
 										<div className='col-md'>
@@ -248,12 +320,24 @@ export default function Booking() {
 														phoneNamberValid ? '' : 'is-invalid'
 													}`}
 													id='validationCustom01'
-													placeholder='ნომერი'
+													placeholder={(language === 'ru'
+														? 'Телефон'
+														: language === 'ka'
+														? 'ტელეფონი'
+														: ''
+													).toString()}
 													name='customer_phone'
 													onChange={e => setMobile(e.target.value)}
 													required
 												/>
-												<label htmlFor='validationCustom01'>ტელეფონი</label>
+												<label htmlFor='validationCustom01'>
+													{(language === 'ru'
+														? 'Телефон'
+														: language === 'ka'
+														? 'ტელეფონი'
+														: ''
+													).toString()}
+												</label>
 												<div className='valid-feedback'>Looks good!</div>
 												<div
 													id='validationServerUsernameFeedback'
@@ -276,14 +360,24 @@ export default function Booking() {
 											onChange={data}
 										></textarea>
 										<label htmlFor='floatingTextarea2' className=''>
-											Comments
+											{(language === 'ru'
+												? 'Комментарий'
+												: language === 'ka'
+												? 'კომენტარი'
+												: ''
+											).toString()}
 										</label>
 									</div>
 								</div>
 								<div className='row justify-content-center text-center'>
 									<div className='col-md-12 col-12 mt-4'>
 										<button type='submit' className='btn '>
-											ჯავშანის გაკეთება
+											{(language === 'ru'
+												? 'Бронировать'
+												: language === 'ka'
+												? 'ჯავშანის გაკეთება'
+												: ''
+											).toString()}
 										</button>
 									</div>
 								</div>

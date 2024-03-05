@@ -3,6 +3,8 @@ import { workingHours } from '../../api/api.js';
 import DisabledTooltip from './tooltip.jsx';
 
 export default function Hours({ bookings, setFreeHour }) {
+	const language = localStorage.getItem('selectedLanguage');
+
 	const [hours, setHours] = useState([]);
 
 	useEffect(() => {
@@ -40,7 +42,14 @@ export default function Hours({ bookings, setFreeHour }) {
 
 	return (
 		<div className='mt-3 hours-checkbox  '>
-			<h4 className='solid'>მონიშნე დრო</h4>
+			<h4 className='solid'>
+				{(language === 'ru'
+					? 'Выберите время'
+					: language === 'ka'
+					? 'მონიშნე დრო'
+					: ''
+				).toString()}
+			</h4>
 			{finalBookings &&
 				finalBookings?.map((booking, index) => (
 					// eslint-disable-next-line react/jsx-key

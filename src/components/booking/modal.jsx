@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-
+const language = localStorage.getItem('selectedLanguage');
 const MyModal = ({
 	showModal,
 	handleCloseModal,
@@ -26,7 +26,14 @@ const MyModal = ({
 			centered
 		>
 			<Modal.Header>
-				<Modal.Title>{modalTitle}</Modal.Title>
+				<Modal.Title>
+					{(language === 'ru'
+						? 'Введите СМС-код'
+						: language === 'ka'
+						? 'შეიყვანეთ სმს კოდი'
+						: ''
+					).toString()}
+				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<p>{generateModalContent()}</p>
@@ -37,7 +44,12 @@ const MyModal = ({
 					style={{ backgroundColor: 'red !important' }}
 					onClick={finalSmsCode}
 				>
-					გაგზავნა
+					{(language === 'ru'
+						? 'Отправлять'
+						: language === 'ka'
+						? 'გაგზავნა'
+						: ''
+					).toString()}
 				</Button>
 			</Modal.Footer>
 		</Modal>

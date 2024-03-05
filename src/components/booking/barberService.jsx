@@ -1,10 +1,19 @@
 import React from 'react';
 export default function BarberService({ barberService, data }) {
+	const selectedLanguage = localStorage.getItem('selectedLanguage');
 	return (
 		<>
 			<div className='col-md-4'>
 				<div className='barber-service'>
-					<h5>თმა</h5>
+					<h5>
+						{(selectedLanguage === 'ru'
+							? 'Волосы'
+							: selectedLanguage === 'ka'
+							? 'თმა'
+							: ''
+						).toString()}
+					</h5>
+
 					{barberService.map(res => {
 						if (res.category_type === '1') {
 							return (
@@ -26,7 +35,14 @@ export default function BarberService({ barberService, data }) {
 			</div>
 			<div className='col-md-4'>
 				<div className='barber-service'>
-					<h5>წვერი</h5>
+					<h5>
+						{(selectedLanguage === 'ru'
+							? 'Борода'
+							: selectedLanguage === 'ka'
+							? 'წვერი'
+							: ''
+						).toString()}
+					</h5>
 					{barberService.map(res => {
 						if (res.category_type === '2') {
 							return (
@@ -48,7 +64,14 @@ export default function BarberService({ barberService, data }) {
 			</div>
 			<div className='col-md-4'>
 				<div className='barber-service'>
-					<h5>ზოგადი</h5>
+					<h5>
+						{(selectedLanguage === 'ru'
+							? 'Общий'
+							: selectedLanguage === 'ka'
+							? 'ზოგადი'
+							: ''
+						).toString()}
+					</h5>
 					{barberService.map(res => {
 						if (res.category_type === '3') {
 							return (
