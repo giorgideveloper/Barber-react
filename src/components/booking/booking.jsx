@@ -22,6 +22,7 @@ import {
 	commentLabelLang,
 	infoTitleLang,
 	nameInputLabelLang,
+	nameInputTitle,
 	phoneLabelLang,
 	servicetTitleLang,
 	submitTitleLang,
@@ -105,6 +106,14 @@ export default function Booking() {
 					console.log('error service');
 				}
 			}
+			if (selectedLanguage === 'en') {
+				const res = await serviceEn();
+				if (res.status === 200) {
+					setBarberService(res.data.results);
+				} else {
+					console.log('error service');
+				}
+			}
 		} catch (error) {
 			throw error;
 		}
@@ -172,11 +181,7 @@ export default function Booking() {
 		en: 'barber_name_eng',
 	};
 	const propertyName = languageCodeToPropertyName[language] || '';
-	// const labelMap = {
-	// 	ru: 'Комментарий',
-	// 	ka: 'კომენტარი',
-	// 	'': 'კომენტარი', // Default value when language is empty
-	// };
+
 	return (
 		<>
 			{loading ? (
@@ -193,15 +198,8 @@ export default function Booking() {
 									</div>
 								</div>
 								<div className='row'>
-									<div className=' booking-title '>
-										<h1>
-											{(language === 'ru'
-												? 'Забронировать'
-												: language === 'ka'
-												? 'ჯავშანის გაკეთება'
-												: ''
-											).toString()}
-										</h1>
+									<div className='booking-title'>
+										<h1>{bookingTitleLang[language]}</h1>
 										<div className='booking-solid'></div>
 									</div>
 								</div>
@@ -225,28 +223,14 @@ export default function Booking() {
 							>
 								<div className='barber-checkbox'>
 									<div className='row'>
-										<h4 className='solid'>
-											{(language === 'ru'
-												? 'Выберите услугу'
-												: language === 'ka'
-												? 'აირჩიეთ სერვისი'
-												: ''
-											).toString()}
-										</h4>
+										<h4 className='solid'>{servicetTitleLang[language]}</h4>
 										<BarberService barberService={barberService} data={data} />
 									</div>
 								</div>
 
 								<div className='col-12 col-md-6 mt-3'>
 									<div className='row g-2 '>
-										<h4 className='solid'>
-											{(language === 'ru'
-												? 'Выберите барбера'
-												: language === 'ka'
-												? 'აირჩიეთ ბარბერი'
-												: ''
-											).toString()}
-										</h4>
+										<h4 className='solid'>{barberTitleLang[language]} </h4>
 
 										<div className='col-md'>
 											<div className='row g-2'>
@@ -292,14 +276,7 @@ export default function Booking() {
 
 								<div className='col-12 col-md-6'>
 									<div className='row mt-3 '>
-										<h4 className='solid'>
-											{(language === 'ru'
-												? 'Ваша информация'
-												: language === 'ka'
-												? 'შენი ინფორმაცია'
-												: ''
-											).toString()}
-										</h4>
+										<h4 className='solid'>{infoTitleLang[language]}</h4>
 										<div className='col-md-12'>
 											<div className='form-floating '>
 												<input
@@ -313,12 +290,7 @@ export default function Booking() {
 												/>
 												<label htmlFor='validationDefault01'>
 													{' '}
-													{(language === 'ru'
-														? 'Имя'
-														: language === 'ka'
-														? 'სახელი'
-														: ''
-													).toString()}
+													{nameInputLabelLang[language]}
 												</label>
 											</div>
 										</div>
@@ -330,23 +302,13 @@ export default function Booking() {
 														phoneNamberValid ? '' : 'is-invalid'
 													}`}
 													id='validationCustom01'
-													placeholder={(language === 'ru'
-														? 'Телефон'
-														: language === 'ka'
-														? 'ტელეფონი'
-														: ''
-													).toString()}
+													placeholder={phoneLabelLang[language]}
 													name='customer_phone'
 													onChange={e => setMobile(e.target.value)}
 													required
 												/>
 												<label htmlFor='validationCustom01'>
-													{(language === 'ru'
-														? 'Телефон'
-														: language === 'ka'
-														? 'ტელეფონი'
-														: ''
-													).toString()}
+													{phoneLabelLang[language]}
 												</label>
 												<div className='valid-feedback'>Looks good!</div>
 												<div
@@ -370,24 +332,14 @@ export default function Booking() {
 											onChange={data}
 										></textarea>
 										<label htmlFor='floatingTextarea2' className=''>
-											{(language === 'ru'
-												? 'Комментарий'
-												: language === 'ka'
-												? 'კომენტარი'
-												: ''
-											).toString()}
+											{commentLabelLang[language]}
 										</label>
 									</div>
 								</div>
 								<div className='row justify-content-center text-center'>
 									<div className='col-md-12 col-12 mt-4'>
 										<button type='submit' className='btn '>
-											{(language === 'ru'
-												? 'Бронировать'
-												: language === 'ka'
-												? 'ჯავშანის გაკეთება'
-												: ''
-											).toString()}
+											{submitTitleLang[language]}
 										</button>
 									</div>
 								</div>
