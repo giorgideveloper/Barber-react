@@ -5,6 +5,7 @@ import moment from 'moment';
 import Hours from './hours.jsx';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { dateTitleLang } from '../../lang/lang.js';
 
 export default function BookingDate({ setFreeHour, setDay, barberId }) {
 	const [timeBooking, setTimeBooking] = useState([]);
@@ -49,14 +50,7 @@ export default function BookingDate({ setFreeHour, setDay, barberId }) {
 
 	return (
 		<div>
-			<h4 className='solid'>
-				{(language === 'ru'
-					? 'Выберите дату'
-					: language === 'ka'
-					? 'აირჩიე დრო'
-					: ''
-				).toString()}
-			</h4>
+			<h4 className='solid'>{dateTitleLang[language]}</h4>
 			<div className='row g-1'>
 				<div className='col-12 col-xl-12 '>
 					<DatePicker

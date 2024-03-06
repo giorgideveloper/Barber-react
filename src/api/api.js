@@ -77,6 +77,14 @@ export const serviceRu = async () => {
 		throw err;
 	}
 };
+export const serviceEn = async () => {
+	try {
+		const res = await axios.get(`${baseUrl}/services-eng/`);
+		return res;
+	} catch (err) {
+		throw err;
+	}
+};
 export const bookingTime = async (time, barberId) => {
 	try {
 		const res = await axios.get(
