@@ -27,11 +27,7 @@ const MyModal = ({
 			centered
 		>
 			<Modal.Header>
-				<Modal.Title>
-					{smsTitleLang[language]
-						? smsTitleLang[language]
-						: 'შეიყვანეთ სმს კოდი'}
-				</Modal.Title>
+				<Modal.Title>{smsTitleLang[language]}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
 				<p>{generateModalContent()}</p>
@@ -42,7 +38,7 @@ const MyModal = ({
 					style={{ backgroundColor: 'red !important' }}
 					onClick={finalSmsCode}
 				>
-					{submitSmsLang[language] ? submitSmsLang[language] : 'გაგზავნა'}
+					{submitSmsLang[language]}
 				</Button>
 			</Modal.Footer>
 		</Modal>
