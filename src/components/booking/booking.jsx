@@ -114,6 +114,14 @@ export default function Booking() {
 					console.log('error service');
 				}
 			}
+			if (selectedLanguage === null) {
+				const res = await service();
+				if (res.status === 200) {
+					setBarberService(res.data.results);
+				} else {
+					console.log('error service');
+				}
+			}
 		} catch (error) {
 			throw error;
 		}
@@ -199,7 +207,11 @@ export default function Booking() {
 								</div>
 								<div className='row'>
 									<div className='booking-title'>
-										<h1>{bookingTitleLang[language]}</h1>
+										<h1>
+											{bookingTitleLang[language]
+												? bookingTitleLang[language]
+												: 'ჯავშანის გაკეთება'}
+										</h1>
 										<div className='booking-solid'></div>
 									</div>
 								</div>
@@ -223,14 +235,22 @@ export default function Booking() {
 							>
 								<div className='barber-checkbox'>
 									<div className='row'>
-										<h4 className='solid'>{servicetTitleLang[language]}</h4>
+										<h4 className='solid'>
+											{servicetTitleLang[language]
+												? servicetTitleLang[language]
+												: 'აირჩიეთ სერვისი'}
+										</h4>
 										<BarberService barberService={barberService} data={data} />
 									</div>
 								</div>
 
 								<div className='col-12 col-md-6 mt-3'>
 									<div className='row g-2 '>
-										<h4 className='solid'>{barberTitleLang[language]} </h4>
+										<h4 className='solid'>
+											{barberTitleLang[language]
+												? barberTitleLang[language]
+												: 'აირჩიე ბარბერი'}{' '}
+										</h4>
 
 										<div className='col-md'>
 											<div className='row g-2'>
@@ -276,21 +296,31 @@ export default function Booking() {
 
 								<div className='col-12 col-md-6'>
 									<div className='row mt-3 '>
-										<h4 className='solid'>{infoTitleLang[language]}</h4>
+										<h4 className='solid'>
+											{infoTitleLang[language]
+												? infoTitleLang[language]
+												: 'შენი ინფორმაცია'}
+										</h4>
 										<div className='col-md-12'>
 											<div className='form-floating '>
 												<input
 													type='text'
 													className='form-control from-inputs shadow-sm'
 													id='validationDefault01'
-													placeholder={nameInputLabelLang[language]}
+													placeholder={
+														nameInputLabelLang[language]
+															? nameInputLabelLang[language]
+															: 'სახელი'
+													}
 													name='customer_name'
 													onChange={data}
 													required
 												/>
 												<label htmlFor='validationDefault01'>
 													{' '}
-													{nameInputLabelLang[language]}
+													{nameInputLabelLang[language]
+														? nameInputLabelLang[language]
+														: 'სახელი'}
 												</label>
 											</div>
 										</div>
@@ -302,13 +332,19 @@ export default function Booking() {
 														phoneNamberValid ? '' : 'is-invalid'
 													}`}
 													id='validationCustom01'
-													placeholder={phoneLabelLang[language]}
+													placeholder={
+														phoneLabelLang[language]
+															? phoneLabelLang[language]
+															: 'ტელეფონი'
+													}
 													name='customer_phone'
 													onChange={e => setMobile(e.target.value)}
 													required
 												/>
 												<label htmlFor='validationCustom01'>
-													{phoneLabelLang[language]}
+													{phoneLabelLang[language]
+														? phoneLabelLang[language]
+														: 'ტელეფონი'}
 												</label>
 												<div className='valid-feedback'>Looks good!</div>
 												<div
@@ -332,14 +368,18 @@ export default function Booking() {
 											onChange={data}
 										></textarea>
 										<label htmlFor='floatingTextarea2' className=''>
-											{commentLabelLang[language]}
+											{commentLabelLang[language]
+												? commentLabelLang[language]
+												: 'კომენტარი'}
 										</label>
 									</div>
 								</div>
 								<div className='row justify-content-center text-center'>
 									<div className='col-md-12 col-12 mt-4'>
 										<button type='submit' className='btn '>
-											{submitTitleLang[language]}
+											{submitTitleLang[language]
+												? submitTitleLang[language]
+												: 'ჯავშანის გაკეთება'}
 										</button>
 									</div>
 								</div>

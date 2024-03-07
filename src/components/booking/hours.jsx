@@ -44,12 +44,7 @@ export default function Hours({ bookings, setFreeHour }) {
 	return (
 		<div className='mt-3 hours-checkbox  '>
 			<h4 className='solid'>
-				{(language === 'ru'
-					? 'Выберите время'
-					: language === 'ka'
-					? 'მონიშნე დრო'
-					: ''
-				).toString()}
+				{timeTitleLang[language] ? timeTitleLang[language] : 'მონიშნე დრო'}
 			</h4>
 			{finalBookings &&
 				finalBookings?.map((booking, index) => (

@@ -10,7 +10,7 @@ export default function BarberService({ barberService, data }) {
 		<>
 			<div className='col-md-4'>
 				<div className='barber-service'>
-					<h5>{barberHairLang[langue]}</h5>
+					<h5>{barberHairLang[langue] ? barberHairLang[langue] : 'თმა'}</h5>
 
 					{barberService.map(res => {
 						if (res.category_type === '1') {
@@ -33,7 +33,7 @@ export default function BarberService({ barberService, data }) {
 			</div>
 			<div className='col-md-4'>
 				<div className='barber-service'>
-					<h5>{barberBeardLang[langue]}</h5>
+					<h5>{barberBeardLang[langue] ? barberBeardLang[langue] : 'წვერი'}</h5>
 					{barberService.map(res => {
 						if (res.category_type === '2') {
 							return (
@@ -55,7 +55,9 @@ export default function BarberService({ barberService, data }) {
 			</div>
 			<div className='col-md-4'>
 				<div className='barber-service'>
-					<h5>{barberOtherLang[langue]} </h5>
+					<h5>
+						{barberOtherLang[langue] ? barberOtherLang[langue] : 'ზოგადი'}{' '}
+					</h5>
 					{barberService.map(res => {
 						if (res.category_type === '3') {
 							return (

@@ -49,7 +49,7 @@ const infoTitleLang = {
 
 const nameInputLabelLang = {
 	ka: 'სახელი',
-	en: 'Name',
+	en: 'Your name',
 	ru: 'Имя',
 };
 
