@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { smsTitleLang, submitSmsLang } from '../../lang/lang';
-const language = localStorage.getItem('selectedLanguage');
+
 const MyModal = ({
 	showModal,
 	handleCloseModal,
-	modalTitle,
 	setCheckCode,
 	finalSmsCode,
 }) => {
+	const [language, setLanguage] = useState(
+		localStorage.getItem('selectedLanguage')
+	);
+
+	useEffect(() => {
+		// Update language when it changes in localStorage
+		setLanguage(localStorage.getItem('selectedLanguage'));
+	}, []);
 	const generateModalContent = () => (
 		<input
 			type='text'
@@ -19,29 +26,33 @@ const MyModal = ({
 		/>
 	);
 	return (
-		<Modal
-			show={showModal}
-			onHide={handleCloseModal}
-			backdrop='static'
-			keyboard={false}
-			centered
-		>
-			<Modal.Header>
-				<Modal.Title>{smsTitleLang[language]}</Modal.Title>
-			</Modal.Header>
-			<Modal.Body>
-				<p>{generateModalContent()}</p>
-			</Modal.Body>
-			<Modal.Footer>
-				<Button
-					className='btn-modal'
-					style={{ backgroundColor: 'red !important' }}
-					onClick={finalSmsCode}
+		<>
+			{language && (
+				<Modal
+					show={showModal}
+					onHide={handleCloseModal}
+					backdrop='static'
+					keyboard={false}
+					centered
 				>
-					{submitSmsLang[language]}
-				</Button>
-			</Modal.Footer>
-		</Modal>
+					<Modal.Header>
+						<Modal.Title>{smsTitleLang[language]}</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<p>{generateModalContent()}</p>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button
+							className='btn-modal'
+							style={{ backgroundColor: 'red !important' }}
+							onClick={finalSmsCode}
+						>
+							{submitSmsLang[language]}
+						</Button>
+					</Modal.Footer>
+				</Modal>
+			)}
+		</>
 	);
 };
 

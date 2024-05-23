@@ -22,16 +22,18 @@ function SelectBasicExample({ getService }) {
 	};
 
 	return (
-		<Form.Select
-			aria-label='Default select example'
-			className='langs mt-2'
-			onChange={handleSelectChange}
-			value={selectedLanguage}
-		>
-			<CustomOption value='ka' label='ქარ' flagCode='ge' />
-			<CustomOption value='ru' label='RU' flagCode='ru' />
-			<CustomOption value='en' label='Eng' flagCode='us' />
-		</Form.Select>
+		<>
+			<Form.Select
+				aria-label='Default select example'
+				className='langs mt-2'
+				onChange={handleSelectChange}
+				value={selectedLanguage}
+			>
+				<CustomOption value='ka' label='ქარ' flagCode='ge' />
+				<CustomOption value='ru' label='RU' flagCode='ru' />
+				<CustomOption value='en' label='Eng' flagCode='us' />
+			</Form.Select>
+		</>
 	);
 }
 
