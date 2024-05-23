@@ -1,13 +1,9 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import Flag from 'react-world-flags';
 
 // Custom option component with a flag image
 const CustomOption = ({ value, label, flagCode }) => (
-	<option value={value}>
-		<Flag code={flagCode} />
-		{label}
-	</option>
+	<option value={value}>{label}</option>
 );
 
 function SelectBasicExample({ getService }) {
