@@ -22,7 +22,6 @@ export default function BarberService({ barberService, data }) {
 										id={`s_c${res.id}`}
 										value={res.id}
 										onChange={data}
-										required
 									/>
 									<label htmlFor={`s_c${res.id}`}>{res.service_name}</label>
 								</div>
