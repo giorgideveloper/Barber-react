@@ -26,10 +26,22 @@ export default function Hours({ bookings, setFreeHour }) {
 
 	let finalBookings = [];
 
+	// Get Hours
+	const today = new Date();
+	const hourss = today.getHours();
+	const minutes = today.getMinutes().toString().padStart(2, '0');
+
+	console.log(hourss + ':' + minutes + ':00');
+	const fullHours = '0' + hourss + ':' + minutes + ':00';
+	console.log('🚀 ~ Hours ~ fullHours:', fullHours);
+
 	for (const hour in hours) {
 		let isBooked = false;
+		if (hours[hour].time <= fullHours) {
+			isBooked = true;
+		}
 		for (const booking in bookings) {
-			if (hours[hour].time == bookings[booking].time_for_booking) {
+			if (hours[hour].time === bookings[booking].time_for_booking) {
 				isBooked = true;
 			}
 		}
