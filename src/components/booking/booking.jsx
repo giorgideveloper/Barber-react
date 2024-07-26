@@ -60,6 +60,10 @@ export default function Booking() {
 		setUser({ ...user, [name]: value });
 	};
 
+	const mobileChange = e => {
+		setMobile(e.target.value);
+		SetPhoneNamberValid(true);
+	};
 	//finally object
 	let myObg = {
 		date: day,
@@ -137,20 +141,29 @@ export default function Booking() {
 		}
 	};
 
+	function phoneValid(phoneNamber) {
+		const phoneNumberPattern = /^[1-9]\d{8}$/;
+		return phoneNumberPattern.test(phoneNamber);
+	}
+
 	//Send sms code
 	const sendSms = async () => {
 		try {
-			if (barberId && day && freeHour && user.service) {
-				const res = await bookingSmsCode(mobile);
-
-				if (res.status === 201) {
+			if (phoneValid(mobile)) {
+				if (barberId && day && freeHour && user.service) {
+					const res = await bookingSmsCode(mobile);
 					setShowModal(true);
-					toast('success', 'სმს კოდი გამოგზავნილია');
+					if (res.status === 201) {
+						toast('success', 'სმს კოდი გამოგზავნილია');
+					} else {
+						console.log('error sms code');
+					}
 				} else {
-					console.log('error sms code');
+					toast('info', 'მონიშნეთ ყველა ველიი');
 				}
 			} else {
-				toast('info', 'მონიშნეთ ყველა ველიი');
+				toast('info', 'ნომერი არასწორია');
+				SetPhoneNamberValid(false);
 			}
 		} catch (err) {
 			SetPhoneNamberValid(false);
@@ -313,7 +326,7 @@ export default function Booking() {
 													id='validationCustom01'
 													placeholder={phoneLabelLang[language]}
 													name='customer_phone'
-													onChange={e => setMobile(e.target.value)}
+													onChange={mobileChange}
 													required
 												/>
 												<label htmlFor='validationCustom01'>
