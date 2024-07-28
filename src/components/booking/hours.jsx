@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { workingHours } from '../../api/api.js';
 import DisabledTooltip from './tooltip.jsx';
 import { timeTitleLang } from '../../lang/lang.js';
+import moment from 'moment';
 
-export default function Hours({ bookings, setFreeHour }) {
+export default function Hours({ bookings, setFreeHour, time }) {
 	const language = localStorage.getItem('selectedLanguage');
 
 	const [hours, setHours] = useState([]);
@@ -26,19 +27,25 @@ export default function Hours({ bookings, setFreeHour }) {
 
 	let finalBookings = [];
 
+	//Get Day month year
+	const currentDate = moment();
+
+	// Format the date as YYYY-MM-DD
+	const formattedDate = currentDate.format('YYYY-MM-DD');
+
 	// Get Hours
 	const today = new Date();
 	const hourss = today.getHours();
 	const minutes = today.getMinutes().toString().padStart(2, '0');
 
-	console.log(hourss + ':' + minutes + ':00');
 	const fullHours = '0' + hourss + ':' + minutes + ':00';
-	console.log('🚀 ~ Hours ~ fullHours:', fullHours);
 
 	for (const hour in hours) {
 		let isBooked = false;
-		if (hours[hour].time <= fullHours) {
-			isBooked = true;
+		if (formattedDate === time) {
+			if (hours[hour].time <= fullHours) {
+				isBooked = true;
+			}
 		}
 		for (const booking in bookings) {
 			if (hours[hour].time === bookings[booking].time_for_booking) {

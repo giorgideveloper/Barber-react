@@ -65,7 +65,7 @@ export default function BookingDate({ setFreeHour, setDay, barberId }) {
 				</div>
 				<div className='col-12 col-xl-12'>
 					{' '}
-					<Hours bookings={timeBooking} setFreeHour={setFreeHour} />
+					<Hours bookings={timeBooking} setFreeHour={setFreeHour} time={time} />
 				</div>
 			</div>
 		</div>
