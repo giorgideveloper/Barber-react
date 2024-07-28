@@ -34,16 +34,12 @@ export default function Hours({ bookings, setFreeHour, time }) {
 	const formattedDate = currentDate.format('YYYY-MM-DD');
 
 	// Get Hours
-	const today = new Date();
-	const hourss = today.getHours();
-	const minutes = today.getMinutes().toString().padStart(2, '0');
-
-	const fullHours = '0' + hourss + ':' + minutes + ':00';
+	const formattedTime = currentDate.format('HH:mm:ss');
 
 	for (const hour in hours) {
 		let isBooked = false;
 		if (formattedDate === time) {
-			if (hours[hour].time <= fullHours) {
+			if (hours[hour].time <= formattedTime) {
 				isBooked = true;
 			}
 		}
