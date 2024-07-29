@@ -145,6 +145,25 @@ export const bookingCreate = async data => {
 	}
 };
 
+export const barberBookingCreate = async data => {
+	try {
+		const res = await axios.post(
+			`${baseUrl}/bookings/create/barber/`,
+			{
+				...data,
+			},
+			{
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			}
+		);
+		return res;
+	} catch (err) {
+		throw err;
+	}
+};
+
 export const bookingDelete = async (id, csrf) => {
 	try {
 		const res = await axios.delete(`${baseUrl}/bookings/${id}`, {
