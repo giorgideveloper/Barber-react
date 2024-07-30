@@ -1,20 +1,26 @@
-import React, { useState } from 'react';
-
-import BookingDate from '../booking/bookingDate.jsx';
+import React from 'react';
+import BookingDay from './bookingDay.jsx';
+import BookingBarber from './bookingBarber.jsx';
+import BookingHours from './bookingHours.jsx';
 
 function BookingCreate() {
-	const [freeHour, setFreeHour] = useState('');
-	const [day, setDay] = useState('');
-	const [barberId, setBarberId] = useState('');
-	const [checkCode, setCheckCode] = useState('');
 	return (
-		<div>
-			<BookingDate
-				setFreeHour={setFreeHour}
-				setDay={setDay}
-				barberId={barberId}
-				setCheckCode={setCheckCode}
-			/>
+		<div className='container'>
+			<div className='row g-1'>
+				<div className='col-12 col-md-6 mt-3'>
+					{' '}
+					<BookingBarber />
+				</div>
+
+				<div className='col-12 col-md-6 mt-3'>
+					{' '}
+					<BookingDay />
+				</div>
+				{/* <div className='col-12 col-md-6 '>
+					{' '}
+					<BookingHours />
+				</div> */}
+			</div>
 		</div>
 	);
 }
