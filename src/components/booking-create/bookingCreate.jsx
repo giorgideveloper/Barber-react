@@ -133,9 +133,13 @@ function BookingCreate() {
 						</button>
 					</div>
 				</div>
-				<div className='row justify-item-center'>
-					<div className='col-12 justify-content-center mt-5 mb-3'>
-						<button type='button' className='btn' onClick={postBooking}>
+				<div className='row justify-content-center text-center'>
+					<div className='col-12 mt-5 mb-3 justify-content-center '>
+						<button
+							type='button'
+							className='btn justify-content-center'
+							onClick={postBooking}
+						>
 							ჯავშანის ჩახურვა
 						</button>
 					</div>
