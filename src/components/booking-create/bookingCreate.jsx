@@ -80,7 +80,7 @@ function BookingCreate() {
 					icon: 'success',
 				}).then(result => {
 					if (result.isConfirmed) {
-						window.location = '/';
+						window.location = 'https://theclippers.ge/booking/custom_booking/';
 					}
 				});
 			}
