@@ -126,7 +126,7 @@ export const bookingSmsCode = async mobile => {
 	}
 };
 
-export const bookingCreate = async data => {
+export const bookingCreate = async (data, csrf) => {
 	try {
 		const res = await axios.post(
 			`${baseUrl}/bookings/create/`,
@@ -135,7 +135,10 @@ export const bookingCreate = async data => {
 			},
 			{
 				headers: {
+					Accept: 'application/json',
 					'Content-Type': 'application/json',
+					'X-CSRFToken': csrf,
+					mode: 'same-origin', // Do not send CSRF token to another
 				},
 			}
 		);

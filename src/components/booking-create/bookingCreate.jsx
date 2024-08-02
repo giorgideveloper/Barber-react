@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import BookingBarber from './bookingBarber.jsx';
 import BookingDate from '../booking/bookingDate.jsx';
-import { barberBookingCreate, workingHours } from '../../api/api.js';
+import {
+	barberBookingCreate,
+	csrfBookings,
+	workingHours,
+} from '../../api/api.js';
 import Swal from 'sweetalert2';
 import { Toast } from 'react-bootstrap';
 
@@ -13,6 +17,7 @@ function BookingCreate() {
 	const [customName, setCustomName] = useState('ჯავშანი დახურულია');
 	const [finalBookings, setFinalBookings] = useState([]);
 	const [clickBtn, setClickBtn] = useState(false);
+	const [csrf, setCsrf] = useState('');
 
 	const handleSetFreeHour = id => {
 		if (id) {
@@ -73,7 +78,7 @@ function BookingCreate() {
 
 	const postBooking = async () => {
 		try {
-			const res = await barberBookingCreate(myObg);
+			const res = await barberBookingCreate(myObg, csrf);
 			if (res.status === 201) {
 				Swal.fire({
 					title: `საათები დახურულია`,
@@ -88,6 +93,12 @@ function BookingCreate() {
 			Toast('error', 'სმს კოდი არასწორია');
 		}
 	};
+
+	const getCsrf = async () => {
+		const res = await csrfBookings();
+		setCsrf(res);
+	};
+	getCsrf();
 	return (
 		<form className='d-flex'>
 			<div className='container text-light'>
