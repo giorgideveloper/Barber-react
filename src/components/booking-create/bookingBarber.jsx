@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { allBarber } from '../../api/api';
 
-export default function BookingBarber() {
+export default function BookingBarber({ setBarberId }) {
 	const [barber, setBarber] = useState([]);
-	const [barberId, setBarberId] = useState('');
+
 	// Get barber
 	const barberData = async () => {
 		try {

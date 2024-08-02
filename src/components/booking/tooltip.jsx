@@ -25,7 +25,6 @@ function DisabledTooltip({ booking, index, setFreeHour, type }) {
 					disabled={booking.booked}
 					onChange={e => {
 						setFreeHour(e.target.value);
-						console.log(e.target.value);
 					}}
 				/>
 				<label
