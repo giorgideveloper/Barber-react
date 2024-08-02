@@ -126,7 +126,7 @@ export const bookingSmsCode = async mobile => {
 	}
 };
 
-export const bookingCreate = async (data, csrf) => {
+export const bookingCreate = async data => {
 	try {
 		const res = await axios.post(
 			`${baseUrl}/bookings/create/`,
@@ -135,10 +135,7 @@ export const bookingCreate = async (data, csrf) => {
 			},
 			{
 				headers: {
-					Accept: 'application/json',
 					'Content-Type': 'application/json',
-					'X-CSRFToken': csrf,
-					mode: 'same-origin', // sDo not send CSRF token to another
 				},
 			}
 		);
@@ -148,7 +145,7 @@ export const bookingCreate = async (data, csrf) => {
 	}
 };
 
-export const barberBookingCreate = async data => {
+export const barberBookingCreate = async (data, csrf) => {
 	try {
 		const res = await axios.post(
 			`${baseUrl}/bookings/create/barber/`,
@@ -157,7 +154,10 @@ export const barberBookingCreate = async data => {
 			},
 			{
 				headers: {
+					Accept: 'application/json',
 					'Content-Type': 'application/json',
+					'X-CSRFToken': csrf,
+					mode: 'same-origin', // sDo not send CSRF token to another
 				},
 			}
 		);
