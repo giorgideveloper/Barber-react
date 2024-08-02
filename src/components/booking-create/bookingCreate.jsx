@@ -9,7 +9,8 @@ function BookingCreate() {
 	const [day, setDay] = useState('');
 	const [selectedHours, setSelectedHours] = useState([]);
 	const [barberId, setBarberId] = useState('');
-
+	const [customName, setCustomName] = useState('ჯავშანი დახურულია');
+	console.log(customName);
 	const handleSetFreeHour = id => {
 		setSelectedHours(prevSelectedHours =>
 			prevSelectedHours.includes(id)
@@ -26,7 +27,7 @@ function BookingCreate() {
 	let myObg = {
 		date: day.split(),
 		time: selectedHours,
-		customer_name: 'დახურულია',
+		customer_name: customName,
 		customer_phone: '557666363',
 		barbery: barberId,
 		service: 1,
@@ -61,6 +62,7 @@ function BookingCreate() {
 					<div className='col-12 col-md-6 '>
 						{' '}
 						<BookingDate
+							barberId={barberId}
 							setDay={setDay}
 							setFreeHour={handleSetFreeHour}
 							type='checkbox'
@@ -75,6 +77,7 @@ function BookingCreate() {
 							id='validationDefault01'
 							placeholder={'სახელი'}
 							name='customer_name'
+							onChange={e => setCustomName(e.target.value)}
 							required
 						/>
 					</div>
