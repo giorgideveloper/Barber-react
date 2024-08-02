@@ -98,7 +98,9 @@ function BookingCreate() {
 		const res = await csrfBookings();
 		setCsrf(res);
 	};
-	getCsrf();
+	useEffect(() => {
+		getCsrf();
+	}, []);
 	return (
 		<form className='d-flex'>
 			<div className='container text-light'>
