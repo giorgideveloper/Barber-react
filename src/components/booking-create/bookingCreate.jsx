@@ -101,6 +101,7 @@ function BookingCreate() {
 	useEffect(() => {
 		getCsrf();
 	}, []);
+
 	return (
 		<form className='d-flex'>
 			<div className='container text-light'>
