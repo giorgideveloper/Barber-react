@@ -4,7 +4,7 @@ import DisabledTooltip from './tooltip.jsx';
 import { timeTitleLang } from '../../lang/lang.js';
 import moment from 'moment';
 
-export default function Hours({ bookings, setFreeHour, time, type }) {
+export default function Hours({ bookings, setFreeHour, time, type, clickBtn }) {
 	const language = localStorage.getItem('selectedLanguage');
 
 	const [hours, setHours] = useState([]);
@@ -68,6 +68,7 @@ export default function Hours({ bookings, setFreeHour, time, type }) {
 							setFreeHour={setFreeHour}
 							index={index}
 							type={type}
+							clickBtn={clickBtn}
 						/>
 					</div>
 				))}

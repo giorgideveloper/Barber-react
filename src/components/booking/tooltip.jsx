@@ -3,7 +3,8 @@ import React from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-function DisabledTooltip({ booking, index, setFreeHour, type }) {
+function DisabledTooltip({ booking, index, setFreeHour, type, clickBtn }) {
+	console.log(clickBtn);
 	return (
 		<OverlayTrigger
 			overlay={
@@ -28,7 +29,8 @@ function DisabledTooltip({ booking, index, setFreeHour, type }) {
 					}}
 				/>
 				<label
-					className={`btn btn-primary my-radio  `}
+					style={clickBtn ? { backgroundColor: '#cf814d !important' } : {}}
+					className={`btn btn-primary my-radio ${clickBtn ? 'bg-black' : ''}  `}
 					htmlFor={`${type}-${index}`}
 				>
 					{booking.time.slice(0, 5)}

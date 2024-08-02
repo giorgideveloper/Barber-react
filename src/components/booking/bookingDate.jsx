@@ -7,7 +7,13 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { dateTitleLang } from '../../lang/lang.js';
 
-export default function BookingDate({ setFreeHour, setDay, barberId, type }) {
+export default function BookingDate({
+	setFreeHour,
+	setDay,
+	barberId,
+	type,
+	clickBtn,
+}) {
 	const [timeBooking, setTimeBooking] = useState([]);
 	const [time, setTime] = useState('');
 	const [startDate, setStartDate] = useState(new Date());
@@ -70,6 +76,7 @@ export default function BookingDate({ setFreeHour, setDay, barberId, type }) {
 						setFreeHour={setFreeHour}
 						time={time}
 						type={type}
+						clickBtn={clickBtn}
 					/>
 				</div>
 			</div>

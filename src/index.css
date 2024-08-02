@@ -854,3 +854,13 @@ form button {
   width: 100px !important;
   height: 100px !important;
 } */
+
+.w-lg-75 {
+  width: 95% !important;
+}
+
+@media (max-width: 576px) {
+  .w-sm-100 {
+    width: 100% !important;
+  }
+}

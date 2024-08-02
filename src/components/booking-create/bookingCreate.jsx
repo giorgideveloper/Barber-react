@@ -1,27 +1,65 @@
 import React, { useEffect, useState } from 'react';
 import BookingBarber from './bookingBarber.jsx';
 import BookingDate from '../booking/bookingDate.jsx';
-import { barberBookingCreate, service } from '../../api/api.js';
+import { barberBookingCreate, workingHours } from '../../api/api.js';
 import Swal from 'sweetalert2';
 import { Toast } from 'react-bootstrap';
 
 function BookingCreate() {
 	const [day, setDay] = useState('');
 	const [selectedHours, setSelectedHours] = useState([]);
+	const [allHouers, setAllHours] = useState([]);
 	const [barberId, setBarberId] = useState('');
 	const [customName, setCustomName] = useState('ჯავშანი დახურულია');
-	console.log(customName);
+	const [finalBookings, setFinalBookings] = useState([]);
+	const [clickBtn, setClickBtn] = useState(false);
+
 	const handleSetFreeHour = id => {
-		setSelectedHours(prevSelectedHours =>
-			prevSelectedHours.includes(id)
-				? prevSelectedHours.filter(hourId => hourId !== id)
-				: [...prevSelectedHours, id]
-		);
+		if (id) {
+			setSelectedHours(prevSelectedHours =>
+				prevSelectedHours.includes(id)
+					? prevSelectedHours.filter(hourId => hourId !== id)
+					: [...prevSelectedHours, id]
+			);
+		}
 	};
-	console.log();
+
+	console.log(selectedHours);
+	const handleCustomName = e => {
+		if (e.target.value.length > 0) {
+			setCustomName(e.target.value);
+		} else {
+			setCustomName('ჯავშანი დახურულია');
+		}
+	};
+
+	const allHoursFree = () => {
+		let updatedSelectedHours = [...selectedHours];
+		for (const freeHour of allHouers) {
+			if (updatedSelectedHours.includes(freeHour.id)) {
+				updatedSelectedHours = updatedSelectedHours.filter(
+					hourId => hourId !== freeHour.id
+				);
+				setClickBtn(!clickBtn);
+			} else {
+				updatedSelectedHours.push(freeHour.id);
+				setClickBtn(!clickBtn);
+			}
+		}
+		setSelectedHours(updatedSelectedHours);
+	};
+
+	const allWorkingHours = async () => {
+		try {
+			const res = await workingHours();
+			setAllHours(res.data.results);
+		} catch (err) {
+			console.log(err);
+		}
+	};
 	useEffect(() => {
 		handleSetFreeHour();
-		console.log(handleSetFreeHour());
+		allWorkingHours();
 	}, []);
 
 	let myObg = {
@@ -52,7 +90,7 @@ function BookingCreate() {
 	};
 	return (
 		<form className='d-flex'>
-			<div className='container'>
+			<div className='container text-light'>
 				<div className='row g-1'>
 					<div className='col-12 col-md-6 mt-3'>
 						{' '}
@@ -66,23 +104,31 @@ function BookingCreate() {
 							setDay={setDay}
 							setFreeHour={handleSetFreeHour}
 							type='checkbox'
+							setFinalBookings={setFinalBookings}
+							clickBtn={clickBtn}
 						/>
 					</div>
 				</div>
-				<div className='row g-1 justify-content-center'>
+				<div className='row g-1 flex-wrap-reverse '>
 					<div className='col-12 col-md-6'>
+						<h4 className='solid'>სახელი</h4>
 						<input
 							type='text'
-							className='form-control from-inputs shadow-sm w-75'
+							className='form-control from-inputs bg shadow-sm w-lg-75 w-sm-100'
 							id='validationDefault01'
 							placeholder={'სახელი'}
 							name='customer_name'
-							onChange={e => setCustomName(e.target.value)}
+							onChange={handleCustomName}
 							required
 						/>
 					</div>
-					<div className='col-12 col-md-6 mt-2'>
-						<button className='btn' type='button'>
+					<div className='col-12 col-md-6 mt-2 '>
+						<h4 className='solid'>მონიშნე ყველა დრო</h4>
+						<button
+							className={`btn  ${clickBtn ? 'bg-black' : ''}`}
+							type='button'
+							onClick={allHoursFree}
+						>
 							10:00 - 19:00
 						</button>
 					</div>
