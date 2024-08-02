@@ -864,3 +864,7 @@ form button {
     width: 100% !important;
   }
 }
+
+.create-booking {
+  height: 100vh;
+}

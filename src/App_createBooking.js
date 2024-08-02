@@ -2,7 +2,7 @@ import BookingCreateComponent from './components/booking-create/bookingCreate.js
 import './index.css';
 function App() {
 	return (
-		<div className='App'>
+		<div className='App create-booking'>
 			<BookingCreateComponent />
 		</div>
 	);

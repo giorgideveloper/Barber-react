@@ -76,7 +76,7 @@ function BookingCreate() {
 			const res = await barberBookingCreate(myObg);
 			if (res.status === 201) {
 				Swal.fire({
-					title: 'საათები დახურულია',
+					title: `საათები დახურულია`,
 					icon: 'success',
 				}).then(result => {
 					if (result.isConfirmed) {
