@@ -94,11 +94,12 @@ function BookingCreate() {
 		}
 	};
 
-	const getCsrf = async () => {
-		const res = await csrfBookings();
-		setCsrf(res);
-	};
+	// get csrfToken
 	useEffect(() => {
+		const getCsrf = async () => {
+			const res = await csrfBookings();
+			setCsrf(res);
+		};
 		getCsrf();
 	}, []);
 
