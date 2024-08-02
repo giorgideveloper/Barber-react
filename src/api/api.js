@@ -138,7 +138,7 @@ export const bookingCreate = async (data, csrf) => {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
 					'X-CSRFToken': csrf,
-					mode: 'same-origin', // Do not send CSRF token to another
+					mode: 'same-origin', // sDo not send CSRF token to another
 				},
 			}
 		);
