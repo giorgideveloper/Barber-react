@@ -293,6 +293,7 @@ export default function Booking() {
 										setDay={setDay}
 										barberId={barberId}
 										setCheckCode={setCheckCode}
+										type={'radio'}
 									/>
 								</div>
 

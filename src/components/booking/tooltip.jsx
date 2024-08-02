@@ -3,7 +3,7 @@ import React from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-function DisabledTooltip({ booking, index, setFreeHour }) {
+function DisabledTooltip({ booking, index, setFreeHour, type }) {
 	return (
 		<OverlayTrigger
 			overlay={
@@ -16,16 +16,22 @@ function DisabledTooltip({ booking, index, setFreeHour }) {
 		>
 			<div className={`d-inline `}>
 				<input
-					type='radio'
-					className={`btn-check  `}
+					type={type}
+					className={`btn-check`}
 					name='options' // TODO
-					id={index} // TODO
+					id={`${type}-${index}`} // TODO
 					autoComplete='off'
 					value={booking.id}
 					disabled={booking.booked}
-					onChange={e => setFreeHour(e.target.value)}
+					onChange={e => {
+						setFreeHour(e.target.value);
+						console.log(e.target.value);
+					}}
 				/>
-				<label className={`btn btn-primary my-radio  `} htmlFor={index}>
+				<label
+					className={`btn btn-primary my-radio  `}
+					htmlFor={`${type}-${index}`}
+				>
 					{booking.time.slice(0, 5)}
 				</label>
 			</div>
