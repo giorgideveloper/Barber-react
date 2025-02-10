@@ -152,8 +152,9 @@ export default function Booking() {
 			if (phoneValid(mobile)) {
 				if (barberId && day && freeHour && user.service) {
 					const res = await bookingSmsCode(mobile);
-					setShowModal(true);
 					if (res.status === 201) {
+						console.log(res);
+						setShowModal(true);
 						toast('success', 'სმს კოდი გამოგზავნილია');
 					} else {
 						console.log('error sms code');
