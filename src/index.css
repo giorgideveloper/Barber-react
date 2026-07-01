@@ -4,14 +4,13 @@ body {
 }
 
 @font-face {
-  font-family: 'bpg-arial';
+  font-family: "bpg-arial";
   font-style: normal;
   font-weight: 200;
-  src: url('./fonts/bpg-arial-caps-webfont.woff') format('woff');
+  src: url("./fonts/bpg-arial-caps-webfont.woff") format("woff");
 }
 
 @media (min-width: 1400px) {
-
   .container-xxl,
   .container-xl,
   .container-lg,
@@ -23,7 +22,6 @@ body {
 }
 
 @media (min-width: 980px) and (max-width: 1199px) {
-
   .container,
   .container-lg,
   .container-md,
@@ -32,7 +30,7 @@ body {
   }
 }
 
-@media(max-width:1024px) {
+@media (max-width: 1024px) {
   .barber-checkbox .row {
     justify-content: center !important;
   }
@@ -54,21 +52,19 @@ body {
   margin-top: 11px !important;
 }
 
-@media(max-width: 426px) {
+@media (max-width: 426px) {
   .barber-service label {
     font-size: 15px !important;
   }
 }
 
-@media (max-width:758px) {
+@media (max-width: 758px) {
   .booking-date {
     margin-top: 9em !important;
-
   }
 
   .booking-form textarea {
     margin-top: 1em !important;
-
   }
 
   .booking-title h1 {
@@ -78,17 +74,15 @@ body {
   .booking-solid {
     width: 264px !important;
   }
-
-
 }
 
-@media (max-width:426px) {
+@media (max-width: 426px) {
   .booking-section {
     background-size: 250% !important;
   }
 }
 
-@media (max-width:321px) {
+@media (max-width: 321px) {
   .barber-service label {
     font-size: 13px !important;
   }
@@ -104,9 +98,7 @@ body {
   display: flex;
   justify-content: center !important;
   align-items: center !important;
-
 }
-
 
 .rbc-event {
   background-color: #cf814d !important;
@@ -185,7 +177,6 @@ form .btn-primary:hover,
   height: 2.5em;
 }
 
-
 .booking-form .form-floating input {
   min-height: 2.8em !important;
   padding: 1em !important;
@@ -196,7 +187,6 @@ form .btn-primary:hover,
 }
 
 .my-radio {
-
   min-width: 65px;
   font-size: 12px !important;
   vertical-align: middle;
@@ -226,19 +216,19 @@ form .btn-primary:hover,
 
 .booking-title h1 {
   font-size: 48px;
-  color: #fff !important
+  color: #fff !important;
 }
 
 .booking-section {
-
-  background-image: url('../src/img/booking-cover.jpg');
+  background-image: url("../src/img/booking-cover.jpg");
   background-color: #cccccc;
   height: 375px;
   background-position: 50% 32%;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  border-image: fill 0 linear-gradient(0deg, rgb(16, 16, 16) 0%, rgba(255, 255, 255, 0) 15%)
+  border-image: fill 0
+    linear-gradient(0deg, rgb(16, 16, 16) 0%, rgba(255, 255, 255, 0) 15%);
 }
 
 .booking-solid {
@@ -305,7 +295,6 @@ h4.solid {
   position: relative !important;
   margin-bottom: 20px !important;
   margin-top: 30px !important;
-
 }
 
 h4::after {
@@ -340,19 +329,18 @@ h4::after {
   color: #fff;
   padding: 5px 15px 2px 15px;
   font-size: 16px;
-  letter-spacing: 2px
+  letter-spacing: 2px;
 }
 
 .booking-form .barber-service .form-group {
   margin-bottom: -0.6em !important;
-
 }
 
 .barber-service label {
   color: #a8a5a8;
 }
 
-.barber-service input[type=checkbox]:checked {
+.barber-service input[type="checkbox"]:checked {
   background: #cf814d !important;
   opacity: 1 !important;
   background: none;
@@ -365,8 +353,7 @@ h4::after {
   height: 15px;
   width: 15px;
   -webkit-appearance: none;
-  opacity: .5;
-
+  opacity: 0.5;
 }
 
 .barber-service label {
@@ -375,8 +362,7 @@ h4::after {
   cursor: pointer;
 }
 
-
-#contact_form input[type=checkbox] {
+#contact_form input[type="checkbox"] {
   border: solid 1px #cf814d;
   background: none;
   cursor: pointer;
@@ -387,9 +373,8 @@ h4::after {
   height: 15px;
   width: 15px;
   -webkit-appearance: none;
-  opacity: .5;
+  opacity: 0.5;
 }
-
 
 .form-floating {
   color: rgb(182, 182, 182) !important;
@@ -406,17 +391,16 @@ h4::after {
   border: 1px solid #663f24 !important;
 }
 
-.form-floating>.form-control:focus~label,
-.form-floating>.form-control:not(:placeholder-shown)~label,
-.form-floating>.form-control-plaintext~label,
-.form-floating>.form-select~label {
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-control-plaintext ~ label,
+.form-floating > .form-select ~ label {
   display: none !important;
 }
 
 .barber-radio input[type="radio"],
 .de_form input[type="checkbox"] {
   display: none;
-
 }
 
 .barber-radio img {
@@ -427,15 +411,10 @@ h4::after {
   background: #cf814d;
   cursor: pointer;
   object-fit: cover;
-
-
 }
 
-
-
-
-.barber-radio input[type="radio"]+label,
-.barber-radio input[type="checkbox"]+label {
+.barber-radio input[type="radio"] + label,
+.barber-radio input[type="checkbox"] + label {
   padding: 0px;
   position: relative;
   background: none;
@@ -460,7 +439,7 @@ h4::after {
   color: #c0c0c0 !important;
 }
 
-.barber-radio [type=radio] {
+.barber-radio [type="radio"] {
   position: absolute;
   opacity: 0;
   width: 0;
@@ -468,7 +447,7 @@ h4::after {
 }
 
 /* IMAGE STYLES */
-.barber-radio [type=radio]+img {
+.barber-radio [type="radio"] + img {
   padding: 0px;
   position: relative;
   background: none;
@@ -478,11 +457,10 @@ h4::after {
   margin-right: 5%;
   cursor: pointer;
   height: 200px;
-
 }
 
 /* CHECKED STYLES */
-.barber-radio [type=radio]:checked+img {
+.barber-radio [type="radio"]:checked + img {
   outline: 3px solid #cf814d !important;
 }
 
@@ -495,8 +473,8 @@ h4::after {
   width: 100%;
 } */
 
-.barber-checkbox .btn-check:checked+.btn,
-:not(.btn-check)+.btn:active,
+.barber-checkbox .btn-check:checked + .btn,
+:not(.btn-check) + .btn:active,
 .btn:first-child:active,
 .btn.active,
 .btn.show {
@@ -504,18 +482,16 @@ h4::after {
   background-color: #cf814d !important;
 }
 
-
-.hours-checkbox .btn-check:checked+.btn,
-:not(.btn-check)+.btn:active,
+.hours-checkbox .btn-check:checked + .btn,
+:not(.btn-check) + .btn:active,
 .btn:first-child:active,
 .btn.active,
 .btn.show {
   background-color: #cf814d !important;
-
 }
 
-.hours-checkbox .btn-check:disabled+.btn,
-.btn-check[disabled]+.btn {
+.hours-checkbox .btn-check:disabled + .btn,
+.btn-check[disabled] + .btn {
   color: #ffffff56;
 }
 
@@ -524,15 +500,11 @@ h4::after {
   position: relative;
 }
 
-
 .hours-checkbox label {
   font-size: 12px !important;
   color: #a8a5a8;
   position: relative;
-
 }
-
-
 
 .tooltiptext {
   display: none;
@@ -555,7 +527,6 @@ h4::after {
   margin-bottom: 0.7em !important;
 }
 
-
 .tooltiptext::after {
   content: "";
   position: absolute;
@@ -566,7 +537,6 @@ h4::after {
   border-style: solid;
   border-color: #70492f transparent transparent transparent;
 }
-
 
 .d-inline:hover .tooltiptext {
   display: block !important;
@@ -585,9 +555,8 @@ h4::after {
   border: 1px solid;
   color: white;
   width: 100%;
-  height: 50px
+  height: 50px;
 }
-
 
 .example-custom-input {
   width: 100% !important;
@@ -612,9 +581,7 @@ form button {
 }
 
 .modal-content .form-control {
-
   color: #fff !important;
-
 }
 
 .btn-close {
@@ -650,8 +617,6 @@ form button {
   border-top: 1px solid #70492f60;
 }
 
-
-
 .rbc-btn-group button:hover,
 .rbc-btn-group button:active,
 .rbc-btn-group button:visited,
@@ -670,7 +635,6 @@ form button {
   height: 100vh;
   background-color: #181818;
   color: #fff;
-
 }
 
 .rbc-today button {
@@ -681,7 +645,8 @@ form button {
   background-color: #181818;
 }
 
-.rbc-toolbar button:active, .rbc-toolbar button.rbc-active {
+.rbc-toolbar button:active,
+.rbc-toolbar button.rbc-active {
   background-color: #cf814d !important;
   border: 1px solid #2c1d13 !important;
 }
@@ -708,22 +673,20 @@ form button {
   color: #ffffff;
 }
 
-.rbc-day-bg+.rbc-day-bg {
+.rbc-day-bg + .rbc-day-bg {
   border: 1px solid #70492f00 !important;
   color: #ffff !important;
-
 }
 
-.rbc-month-row+.rbc-month-row {
-  border-top: 1px solid #70492f60 !important;
-
-}
-
-.rbc-agenda-view table.rbc-agenda-table tbody>tr+tr {
+.rbc-month-row + .rbc-month-row {
   border-top: 1px solid #70492f60 !important;
 }
 
-.rbc-header+.rbc-header {
+.rbc-agenda-view table.rbc-agenda-table tbody > tr + tr {
+  border-top: 1px solid #70492f60 !important;
+}
+
+.rbc-header + .rbc-header {
   border-bottom: 1px solid #70492f60 !important;
   background-color: #181818 !important;
 }
@@ -732,7 +695,7 @@ form button {
   background-color: #181818 !important;
 }
 
-.rbc-time-content>*+*>* {
+.rbc-time-content > * + * > * {
   border-left: 1px solid #70492f !important;
 }
 
@@ -764,7 +727,7 @@ form button {
   border: 1px solid #70492f60 !important;
 }
 
-.rbc-agenda-view table.rbc-agenda-table tbody>tr>td+td {
+.rbc-agenda-view table.rbc-agenda-table tbody > tr > td + td {
   border-left: 1px solid #70492f60 !important;
 }
 
@@ -783,7 +746,7 @@ form button {
 /* .rbc-row-bg {
   border: 1px solid #cf814d !important;
 } */
-.rbc-agenda-view table.rbc-agenda-table tbody>tr>td {
+.rbc-agenda-view table.rbc-agenda-table tbody > tr > td {
   vertical-align: middle !important;
 }
 
@@ -795,7 +758,7 @@ form button {
 .canvase-dropdown button {
   width: 100%;
   border-radius: 1px;
-  height: 42px
+  height: 42px;
 }
 
 .offcanvas-header {
@@ -810,14 +773,13 @@ form button {
   background-color: #707070 !important;
 }
 
-.rbc-btn-group>button:not(:first-child):not(:last-child) {
+.rbc-btn-group > button:not(:first-child):not(:last-child) {
   display: none;
 }
 
 .notification-underline ul {
   text-decoration: none;
   list-style: none;
-
 }
 
 .rbc-agenda-table td {
